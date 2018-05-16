@@ -1,0 +1,49 @@
+body{
+    background-image: url(photos/background.png);
+}
+
+div{
+    text-align: center;
+    align-self: center;
+}
+
+div.login{
+    border: 5px solid grey;
+    background-image: url(photos/logo.png);
+    background-position-x: 50%;
+    background-repeat: no-repeat;
+    font: 25px tamagotchiFont;
+}
+
+p.titleTamagotchi{
+    color: #ff0000;
+    font: 60px bold;
+    font-family: tamagotchiFont;
+}
+
+input{
+    border: solid chartreuse;
+    height: 25px;
+    text-align: center
+}
+
+input.login{
+    width: 250px;
+    font-size: 20px;
+    font-family: tamagotchiFont;
+}
+
+input.buttomLogin{
+    margin-top: 10px;
+    background-color: yellow;
+    height: 50px;
+    width: 100px;
+    text-align: center;
+    font: 30px bold;
+    font-family: tamagotchiFont;
+}
+
+@font-face {
+    font-family: tamagotchiFont;
+    src: url(font/waltographUI.ttf);
+}
