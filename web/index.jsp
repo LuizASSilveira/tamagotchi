@@ -9,26 +9,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="styles.css">
+        <!-- esta linha abaixo é para fazer o conteudo se adaptar a tela, tanto do computador quanto do celular -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/styles.css">
         <title>JSP Page</title>
     </head>
     <body>
-        <div>
-            <p class="titleTamagotchi">Game Tamagotchi Linguagem de Programação</p>
-        </div>
+        <!-- tudo deve estar dentro desta classe container-fluid -->
+        <div class="container-fluid">
+            <div>
+                <p class="titleTamagotchi">Tamagotchi LP</p>
+            </div>
 
-        <div class="login">
-            <p>Login</p>
-                <hr>
-            <form>
-                Digite o login:<br>
-                <input type="text" class="login" name="login">
+            <div class="login">
+                <p>Login</p>
+                <form method="POST" action="Login">
+                    Digite o login:<br>
+                    <input type="text" class="login" name="login">
+                        <br>
+                    Digite a senha:<br>
+                    <input type="password" class="login" name="password">
                     <br>
-                Digite a senha:<br>
-                <input type="password" name="password">
-                <br>
-                <input type="submit" value="Login" class="buttomLogin">
-            </form>
+                    <input type="submit" value="Login" class="buttomLogin">
+                </form>
+            </div>
         </div>
     </body>
 </html>

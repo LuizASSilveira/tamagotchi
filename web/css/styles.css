@@ -1,36 +1,32 @@
 body{
-    background-image: url(photos/background.png);
-}
-
-div{
+    margin-top: 5%;
+    background-image: url(../photos/background.png);
     text-align: center;
-    align-self: center;
-}
-
-div.login{
-    border: 5px solid grey;
-    background-image: url(photos/logo.png);
-    background-position-x: 50%;
-    background-repeat: no-repeat;
-    font: 25px tamagotchiFont;
 }
 
 p.titleTamagotchi{
     color: #ff0000;
-    font: 60px bold;
+    font: 300% bold;
+    font-family: tamagotchiFont;
+    text-align: center;
+}
+
+input.login{
+    width: 70%;
+    font-size: 20px;
     font-family: tamagotchiFont;
 }
 
 input{
     border: solid chartreuse;
-    height: 25px;
-    text-align: center
+    height: 30px;
+    text-align: center;
 }
 
-input.login{
-    width: 250px;
-    font-size: 20px;
+div.login{
+    text-align: center;
     font-family: tamagotchiFont;
+    font-size: 140%;
 }
 
 input.buttomLogin{
@@ -45,5 +41,5 @@ input.buttomLogin{
 
 @font-face {
     font-family: tamagotchiFont;
-    src: url(font/waltographUI.ttf);
+    src: url(../font/waltographUI.ttf);
 }
