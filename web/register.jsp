@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : register
     Created on : 17/05/2018, 01:51:35
     Author     : Daniel
@@ -27,7 +27,7 @@
                 Egg:<br>
                 <input type="radio" name="sex" value="boy">Macho<br>
                 <input type="radio" name="sex" value="girg">Femea<br>
-                <input type="submit" value="Criar">
+                <input type="submit" value="Criar" class="buttomLogin">
             </form>
         </div>
     </body>

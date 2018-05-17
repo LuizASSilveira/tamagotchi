@@ -14,8 +14,8 @@
         <servlet-class>Requisicao</servlet-class>
     </servlet>
 
-    <serservlet-mapping>
+    <servlet-mapping>
         <servlet-name>Requisicao</servlet-name>
-        <servlet-pattern>/Controller</servlet-pattern>
-    </serservlet-mapping>
+        <url-pattern>/Controller</url-pattern>
+    </servlet-mapping>
 </web-app>

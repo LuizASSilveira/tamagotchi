@@ -1,0 +1,19 @@
+Instruções para adicionar algo:
+
+Ao adicionar uma classe, esta deve estar dentro da pasta WEB-INF/classes/pastaDaClasse/classe.java
+
+Então com o CMD aberto na pasta WEB-INF, usamos o seguinte comando:
+javac -cp lib/servlet-api.jar classes/'pastaDaClasse/classe.java'
+
+Necessário este comando pois para compilar, temos que incluir a biblioteca servlet-api.jar. Esta contem os arquivos javax.servlet.http.*
+Depois de compilar, vamos no arquivo WEB-INF/web.xml e criamos uma nova entrada para este servlet:
+
+<servlet>
+    <servlet-name>classe</servlet-name>
+    <servlet-class>classe</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>classe</servlet-name>
+    <url-pattern>/pastaDaClasse</url-pattern>
+</servlet-mapping>
