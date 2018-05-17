@@ -1,6 +1,7 @@
+
 <%-- 
-    Document   : login
-    Created on : 16/05/2018, 17:16:40
+    Document   : index
+    Created on : 16/05/2018, 12:12:33
     Author     : Daniel
 --%>
 
@@ -16,27 +17,26 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/styles.css">
-        <title>Tamagotchi</title>
+        <title>Login Tamagotchi</title>
     </head>
-
     <body>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid">
-            <div class="row">
-                <p class="titleTamagotchi">Tamagotchi LP</p>
+            <div>
+                <p class="titleTamagotchi">Tamagotchi login</p>
             </div>
 
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="login.jsp">
-                       <img src="photos/login.png" title="Egg para login"/>
-                    </a>
-                </div>
-                <div class="col-xs-6">
-                    <a href="register.jsp">
-                       <img src="photos/register.png" title="Egg para criar conta"/>
-                    </a>
-                </div>
+            <div class="login">
+                <p>Login</p>
+                <form method="POST" action="Requisicao">
+                    Login:<br>
+                    <input type="text" class="login" name="login">
+                        <br>
+                    Senha:<br>
+                    <input type="password" class="login" name="password">
+                    <br>
+                    <input type="submit" value="Login" class="buttomLogin">
+                </form>
             </div>
         </div>
     </body>

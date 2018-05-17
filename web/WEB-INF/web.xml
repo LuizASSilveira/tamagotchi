@@ -8,4 +8,14 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>Requisicao</servlet-name>
+        <servlet-class>Requisicao</servlet-class>
+    </servlet>
+
+    <serservlet-mapping>
+        <servlet-name>Requisicao</servlet-name>
+        <servlet-pattern>/Controller</servlet-pattern>
+    </serservlet-mapping>
 </web-app>
