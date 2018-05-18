@@ -5,80 +5,28 @@
  */
 package Model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.Statement;
 
 /**
  *
  * @author Venturini
  */
 
-public class DAO {
+public class DAO{
 
-    private String status = "Não conectou!!";
-    private final String database;
-    private final String username;
-    private final String password;
+    private static Connection con;
+    private static Statement comando;
 
-    public DAO(String database, String username, String password) throws SQLException, ClassNotFoundException{
-        this.database = database;
-        this.password = password;
-        this.username = username;
+    public DAO(String db, String user, String password) throws SQLException, ClassNotFoundException{
+        this.connect(db, user, password);
+    }
 
-        createdbs();
+    // faço a conecção passando os parâmetros necessários para tal operação
+    private static void  connect(String database,String user, String password) throws SQLException, ClassNotFoundException{
+       ConnectionFactory fact = new ConnectionPsql(database, user, password);
+       fact.getConnection();
+       //System.out.println(fact.statusConnection()); 
    }
-
-    public String getDatabase(){
-        return database;
-    }
-
-    public String getUsername(){
-        return username;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-
-        try{
-            Class.forName("org.postgresql.Driver");
-
-            String url = "jdbc:postgresql://localhost:5432";// + getDatabase();   // "//localhost:5432" porta padão de instalação do postgre
-            connection = DriverManager.getConnection(url, getUsername(), getPassword());
-
-            if(connection != null){
-                status =  ("STATUS--->Conectado com sucesso!");
-            }else{
-                status = ("STATUS--->Não foi possivel realizar conexão");
-            }
-        } catch (SQLException e){
-           System.out.println("erro ao se conectar");
-           System.out.println(e);
-        }
-
-        return connection;
-    }
-
-    public String statusConnection() {
-        return status;
-    }
-
-    private void createdbs() throws SQLException, ClassNotFoundException{
-        ResultSet rs = getConnection().createStatement().executeQuery("\\i firstsOperations.sql");
-        closeConnection();
-    }
-
-    public boolean closeConnection() throws ClassNotFoundException {
-        try {
-            getConnection().close();
-            return true;
-        }catch (SQLException e){
-            return false;
-        }
-    }
 }
