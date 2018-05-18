@@ -9,6 +9,15 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>postgres</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>postgresAdmin</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>Requisicao</servlet-name>
         <servlet-class>Requisicao</servlet-class>

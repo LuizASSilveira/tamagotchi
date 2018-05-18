@@ -7,11 +7,19 @@
  * Author:  Daniel
  * Created: 17/05/2018
  */
-
 CREATE DATABASE lp
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
 
-create table egg (login varchar(20) primary key, senha varchar(20), hunger integer, healt integer, happy integer, state integer, lastTime timestamp, gameTouch integer)
+CREATE TABLE IF NOT EXISTS egg (
+    login varchar(20) not null PRIMARY KEY,
+    senha varchar(20) not null ,
+    hunger integer not null ,
+    healt integer not null ,
+    happy integer not null ,
+    state integer not null ,
+    lastTime timestamp not null ,
+    gameTouch integer not null
+);

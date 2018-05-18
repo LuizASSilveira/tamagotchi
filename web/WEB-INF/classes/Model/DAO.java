@@ -7,6 +7,7 @@ package Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -21,11 +22,12 @@ public class DAO {
     private final String username;
     private final String password;
 
-    public DAO(String database, String username, String password){
+    public DAO(String database, String username, String password) throws SQLException, ClassNotFoundException{
         this.database = database;
         this.password = password;
         this.username = username;
- 
+
+        createdbs();
    }
 
     public String getDatabase(){
@@ -40,11 +42,13 @@ public class DAO {
         return password;
     }
 
-    public Connection getConection() throws SQLException, ClassNotFoundException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
         Connection connection = null;
-        try{
-            String url = "jdbc:postgresql://localhost:5432/" + getDatabase();   // "//localhost:5432" porta padão de instalação do postgre
 
+        try{
+            Class.forName("org.postgresql.Driver");
+
+            String url = "jdbc:postgresql://localhost:5432";// + getDatabase();   // "//localhost:5432" porta padão de instalação do postgre
             connection = DriverManager.getConnection(url, getUsername(), getPassword());
 
             if(connection != null){
@@ -64,9 +68,14 @@ public class DAO {
         return status;
     }
 
-    public boolean closeConection() throws ClassNotFoundException {
+    private void createdbs() throws SQLException, ClassNotFoundException{
+        ResultSet rs = getConnection().createStatement().executeQuery("\\i firstsOperations.sql");
+        closeConnection();
+    }
+
+    public boolean closeConnection() throws ClassNotFoundException {
         try {
-            getConection().close();
+            getConnection().close();
             return true;
         }catch (SQLException e){
             return false;

@@ -5,6 +5,8 @@ Ao adicionar uma classe, esta deve estar dentro da pasta WEB-INF/classes/pastaDa
 Então com o CMD aberto na pasta WEB-INF, usamos o seguinte comando:
 javac -cp lib/servlet-api.jar classes/'pastaDaClasse/classe.java'
 
+javac -cp lib/servlet-api.jar classes/Model/DAO.java classes/Controller/Requisicao.java
+
 Necessário este comando pois para compilar, temos que incluir a biblioteca servlet-api.jar. Esta contem os arquivos javax.servlet.http.*
 Depois de compilar, vamos no arquivo WEB-INF/web.xml e criamos uma nova entrada para este servlet:
 
@@ -17,3 +19,15 @@ Depois de compilar, vamos no arquivo WEB-INF/web.xml e criamos uma nova entrada 
     <servlet-name>classe</servlet-name>
     <url-pattern>/pastaDaClasse</url-pattern>
 </servlet-mapping>
+
+----------------------------------------------------------------------------------------------------------------------
+
+Para o banco de dados:
+
+psql –U nomeuser lp -> para acessar
+psql -l             -> lista os bancos de dados
+
+Dentro do prompt do psql
+\q                  -> sair
+\i /path/script.sql -> importar script.sql
+\d nometabela       –> mostra estrutura da tabela
