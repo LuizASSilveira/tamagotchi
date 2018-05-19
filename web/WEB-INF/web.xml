@@ -9,6 +9,7 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <!-- Parametros iniciais. Estes são recuperados lah no classe Requisicao -->
     <context-param>
         <param-name>user</param-name>
         <param-value>postgres</param-value>
@@ -17,12 +18,22 @@
         <param-name>password</param-name>
         <param-value>postgresAdmin</param-value>
     </context-param>
+    <context-param>
+        <param-name>database</param-name>
+        <param-value>lp</param-value>
+    </context-param>
+    <context-param>
+        <param-name>table</param-name>
+        <param-value>egg</param-value>
+    </context-param>
 
+    <!-- os servlets que temos no programa -->
     <servlet>
         <servlet-name>Requisicao</servlet-name>
         <servlet-class>Requisicao</servlet-class>
     </servlet>
 
+    <!-- a localizacao de cada servlet -->
     <servlet-mapping>
         <servlet-name>Requisicao</servlet-name>
         <url-pattern>/Controller</url-pattern>

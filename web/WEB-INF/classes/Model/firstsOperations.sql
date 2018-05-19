@@ -20,6 +20,6 @@ CREATE TABLE IF NOT EXISTS egg (
     healt integer not null ,
     happy integer not null ,
     state integer not null ,
-    lastTime timestamp not null ,
+    lastTime TIMESTAMP not null ,
     gameTouch integer not null
 );

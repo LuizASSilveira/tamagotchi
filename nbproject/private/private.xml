@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Controller/Requisicao.java</file>
             <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/instrucoes.txt</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Model/ConnectionPsql.java</file>
+            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Controller/Cadastro.java</file>
             <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Model/DAO.java</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Model/ConnectionFactory.java</file>
         </group>
     </open-files>
 </project-private>

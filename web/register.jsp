@@ -21,12 +21,12 @@
         <div class="login">
             <form method="POST" action="Requisicao">
                 Nome de usuario:<br>
-                <input type="text" name="username" class="login"><br>
+                <input type="text" class="login" name="username"><br>
                 Senha:<br>
-                <input type="password" name="password" class="login"><br>
+                <input type="password" class="login" name="password"><br>
                 Egg:<br>
-                <input type="radio" name="sex" value="boy">Macho<br>
-                <input type="radio" name="sex" value="girg">Femea<br>
+                <input type="radio" name="sexo" value="Macho">Macho<br>
+                <input type="radio" name="sexo" value="Femea">Femea<br>
                 <input type="submit" value="Criar" class="buttomLogin">
             </form>
         </div>
