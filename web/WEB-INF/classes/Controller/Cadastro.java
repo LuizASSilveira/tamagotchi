@@ -35,7 +35,7 @@ public class Cadastro {
         // recuperando as informacoes que o usuario passou pelo form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String sexo = request.getParameter("sexo");
+        
 
         // inserindo no bd
         dao.insert(username, password);
@@ -45,7 +45,6 @@ public class Cadastro {
         out.println("<body>Voce fez um CADASTRO com os seguitnes dados:<br>");
         out.println("Username: " + username + " <br>");
         out.println("Senha: " + password + " <br>");
-        out.println("Sexo: " + sexo + " <br>");
         out.println("</body></html>");
     }
 }

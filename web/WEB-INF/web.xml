@@ -6,7 +6,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- Parametros iniciais. Estes são recuperados lah no classe Requisicao -->
@@ -16,7 +16,7 @@
     </context-param>
     <context-param>
         <param-name>password</param-name>
-        <param-value>postgresAdmin</param-value>
+        <param-value>root</param-value>
     </context-param>
     <context-param>
         <param-name>database</param-name>

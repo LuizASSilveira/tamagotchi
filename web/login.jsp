@@ -1,10 +1,4 @@
 
-<%-- 
-    Document   : index
-    Created on : 16/05/2018, 12:12:33
-    Author     : Daniel
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,22 +16,22 @@
     <body>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid">
-            <div>
-                <p class="titleTamagotchi">Tamagotchi login</p>
-            </div>
-
+            
             <div class="login">
-                <p>Login</p>
+                <p class="titleTamagotchi">Login</p>
                 <form method="POST" action="Requisicao">
-                    Login:<br>
-                    <input type="text" class="login" name="login">
-                        <br>
-                    Senha:<br>
+                    <br>
+                    Nome<br>
+                    <input type="text" class="login" name="login"   >
+                    <br>    
+                    Senha<br>
                     <input type="password" class="login" name="password">
                     <br>
-                    <input type="submit" value="Login" class="buttomLogin">
+                    <input type="submit" value="Entrar" class="buttomLogin">
+                    <input type="submit" value="Cadastrar" class="buttomGoCadastro">
                 </form>
             </div>
         </div>
+
     </body>
 </html>
