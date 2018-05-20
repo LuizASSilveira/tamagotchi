@@ -62,9 +62,9 @@ public class Requisicao extends HttpServlet{
 
         // se a requisicao conter o parametro do input 'login',
         // entao envia a requisicao para a classe login
-        String page = request.getParameter("login");
+        String login = request.getParameter("login");
 
-        if(page != null){
+        if(login != null){
             // cria uma instancia de Login e executa o login
             // porem o login apenas escreve na pagina do usuario, ainda nao esta fazendo login
             new Login(request, response, dao).executa();

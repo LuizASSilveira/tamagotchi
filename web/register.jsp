@@ -20,7 +20,7 @@
     <body>
         <div class="login">
             <p class="Cadastro">Cadastro</p>
-            
+
             <form method="POST" action="Requisicao">
                 Nome de usuario<br>
                 <input type="text" class="Nome" name="username"><br>
@@ -28,7 +28,6 @@
                 <input type="password" class="login" name="password"><br>
                 <br>
                 <input type="submit" value="Criar" class="buttomCadastro">
-                
             </form>
         </div>
     </body>

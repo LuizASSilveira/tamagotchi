@@ -22,13 +22,15 @@
                 <form method="POST" action="Requisicao">
                     <br>
                     Nome<br>
-                    <input type="text" class="login" name="login"   >
+                    <input type="text" class="login" name="login">
                     <br>    
                     Senha<br>
                     <input type="password" class="login" name="password">
                     <br>
-                    <input type="submit" value="Entrar" class="buttomLogin">
-                    <input type="submit" value="Cadastrar" class="buttomGoCadastro">
+                    <input type="submit" value="Entrar" name="botaoLogin" class="buttomLogin">
+                    <a href="register.jsp">
+                        <button class="buttomLogin" value="Cadastrar"></button>
+                    </a>
                 </form>
             </div>
         </div>
