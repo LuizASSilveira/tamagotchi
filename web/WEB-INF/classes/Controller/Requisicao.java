@@ -1,16 +1,5 @@
 package Controller;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Daniel
- */
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.annotation.WebServlet;
@@ -67,13 +56,22 @@ public class Requisicao extends HttpServlet{
         if(login != null){
             // cria uma instancia de Login e executa o login
             // porem o login apenas escreve na pagina do usuario, ainda nao esta fazendo login
-            new Login(request, response, dao).executa();
+            try{
+                if(new Login(request, response, dao).executa()){
+                    System.out.println("retorna");
+                    response.sendRedirect("tamagotchi.jsp");
+                }
+            } catch (Exception ex) {
+                System.out.println("Erro ao realizar o login: " + ex);
+            }
         } else {
 
             try{
                 // cria uma instancia de cadastro e executa o cadastro
                 // ja estah fazendo o cadastro
-                new Cadastro(request, response, dao).executa();
+                if(new Cadastro(request, response, dao).executa()){
+                    response.sendRedirect("login.jsp");
+                }
             } catch (Exception ex) {
                 System.out.println("Erro ao realizar o cadastro: " + ex);
             }

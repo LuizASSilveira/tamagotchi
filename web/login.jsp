@@ -27,15 +27,12 @@
                     Senha<br>
                     <input type="password" class="login" name="password">
                     <br>
-                   <div id ="loginCadastro">
-                    	<input type="submit" value="Entrar" name="botaoLogin" class="buttomLogin">
-                    	<a href="register.jsp">
-                        	<button class="buttomGoCadastro" value="Cadastrar">Cadastrar</button>
-                    	</a>
-                    </div>
-                </form>
+                    <input type="submit" value="Entrar" name="botaoLogin" class="buttomLogin">
+                </form>    
+                <a href="register.jsp">
+                    <button class="buttomGoCadastro">Cadastrar</button>
+                </a>
             </div>
         </div>
-
     </body>
 </html>
