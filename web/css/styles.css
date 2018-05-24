@@ -1,15 +1,8 @@
 body{
     margin-top: 5%;
-    background-image: url(../photos/fundo.jpg);
-    background-image: url(../photos/Img2.png);
-    
-    background-repeat: no-repeat;
-    background-position-x: 52%;
-    background-position-y: 40%;
+    background-image: url(../photos/background.png);
     text-align: center;
-    
 }
-
 p.titleTamagotchi{
     color: #ff0000;
     font: 300% bold;
@@ -65,10 +58,9 @@ div.login{
     font-family: tamagotchiFont;
     background-color: rgb(255, 230, 230);
     font-size: 140%;
-    width: 27%;
+    width: 30%;
     height: 80%;
     margin: auto;
-    margin-top: 12%;
     border: solid;
 }
 input, button{

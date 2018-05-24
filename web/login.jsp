@@ -15,8 +15,8 @@
     </head>
     <body>
         <!-- tudo deve estar dentro desta classe container-fluid -->
-        
-        <div class="container-fluid" id="Fundo">  
+        <div class="container-fluid">
+            
             <div class="login">
                 <p class="titleTamagotchi">Login</p>
                 <form method="POST" action="Requisicao">
