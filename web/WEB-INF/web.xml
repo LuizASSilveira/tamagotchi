@@ -23,8 +23,12 @@
         <param-value>lp</param-value>
     </context-param>
     <context-param>
-        <param-name>table</param-name>
-        <param-value>egg</param-value>
+        <param-name>tableUsuario</param-name>
+        <param-value>usuario</param-value>
+    </context-param>
+    <context-param>
+        <param-name>tablePet</param-name>
+        <param-value>pet</param-value>
     </context-param>
 
     <!-- os servlets que temos no programa -->

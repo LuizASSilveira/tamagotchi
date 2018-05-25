@@ -17,21 +17,17 @@ public class Cadastro {
         this.dao = dao;
     }
 
-    public boolean executa() throws IOException {
-        ServletOutputStream out = response.getOutputStream();
-        response.setContentType("text/html");
-
+    public boolean insertUsuario(){
         // recuperando as informacoes que o usuario passou pelo form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         // inserindo no bd
         try{
-            dao.insert(username, password);
+            dao.insertUsuario(username, password);
+            return true;
         } catch (Exception ex) {
             return false;
         }
-        
-        return true;
     }
 }

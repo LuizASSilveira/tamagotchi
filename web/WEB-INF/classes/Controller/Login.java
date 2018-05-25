@@ -18,13 +18,14 @@ public class Login {
         this.dao = dao;
     }
 
-    public boolean executa() throws IOException, SQLException{
-        ServletOutputStream out = response.getOutputStream();
-        response.setContentType("text/html");
-
+    public boolean executa(){
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        return dao.login(login, password);
+        try{
+            return dao.login(login, password);
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }
