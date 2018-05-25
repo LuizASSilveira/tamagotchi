@@ -1,11 +1,6 @@
 package Model;
-
 import java.sql.*;
 
-/**
- *
- * @author Vinicius
- */
 public class DAO {
 
     private final String url = "jdbc:postgresql://localhost:5432/";
@@ -66,4 +61,15 @@ public class DAO {
     public ResultSet getCommand(String s) throws SQLException {
         return command.executeQuery(s);
     }
+    
+    public boolean login(String user, String pass) throws SQLException{
+        getConnection();
+                
+        String comand = "select login, senha from " + table + " where egg.login = '" + user + "' and egg.senha = '" + pass + "';";
+        ResultSet res = getCommand(comand);
+               
+        closeConnection();
+        return res.next();
+    }
+    
 }

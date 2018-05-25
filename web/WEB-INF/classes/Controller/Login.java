@@ -1,20 +1,11 @@
 package Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Daniel
- */
 public class Login {
 
     private HttpServletResponse response;
@@ -27,17 +18,13 @@ public class Login {
         this.dao = dao;
     }
 
-    public void executa() throws IOException{
+    public boolean executa() throws IOException, SQLException{
         ServletOutputStream out = response.getOutputStream();
         response.setContentType("text/html");
 
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        out.println("<html><head><title>Foi</title></head>");
-        out.println("<body>Voce fez um LOGIN com os seguitnes dados:<br>");
-        out.println("Login: " + login + " <br>");
-        out.println("Senha: " + password + " <br>");
-        out.println("</body></html>");
+        return dao.login(login, password);
     }
 }

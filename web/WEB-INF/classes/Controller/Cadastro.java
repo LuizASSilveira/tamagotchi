@@ -28,23 +28,21 @@ public class Cadastro {
         this.dao = dao;
     }
 
-    public void executa() throws IOException, SQLException{
+    public boolean executa() throws IOException {
         ServletOutputStream out = response.getOutputStream();
         response.setContentType("text/html");
 
         // recuperando as informacoes que o usuario passou pelo form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
 
         // inserindo no bd
-        dao.insert(username, password);
-
-        // escrevendo um html para o usuario
-        out.println("<html><head><title>Foi</title></head>");
-        out.println("<body>Voce fez um CADASTRO com os seguitnes dados:<br>");
-        out.println("Username: " + username + " <br>");
-        out.println("Senha: " + password + " <br>");
-        out.println("</body></html>");
+        try{
+            dao.insert(username, password);
+        } catch (Exception ex) {
+            return false;
+        }
+        
+        return true;
     }
 }
