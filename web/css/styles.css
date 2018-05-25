@@ -62,6 +62,7 @@ div.login{
     height: 80%;
     margin: auto;
     border: solid;
+    border-radius: 50px;
 }
 input, button{
     border: solid;
