@@ -16,7 +16,7 @@
     <body>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid">
-            
+
             <div class="login">
                 <p class="titleTamagotchi">Login</p>
                 <form method="POST" action="Requisicao">
@@ -27,10 +27,12 @@
                     Senha<br>
                     <input type="password" class="login" name="password">
                     <br>
-                    <input type="submit" value="Entrar" name="botaoLogin" class="buttomLogin">
-                </form>    
+                    <div id ="loginCadastro">
+                    	<input type="submit" value="Entrar" name="botaoLogin" class="buttomLogin">
+                    </div>
+                </form>
                 <a href="register.jsp">
-                    <button class="buttomGoCadastro">Cadastrar</button>
+                    <button class="buttomGoCadastro" value="Cadastrar">Cadastrar</button>
                 </a>
             </div>
         </div>
