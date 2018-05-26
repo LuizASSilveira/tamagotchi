@@ -24,3 +24,6 @@ Dentro do prompt do psql
 \q                  -> sair
 \i /path/script.sql -> importar script.sql
 \d nometabela       –> mostra estrutura da tabela
+
+
+insert into pet (nome, ultimoacesso, felicidade, qtdtoques, dono, lampada, saude, vida, fome, status) values ('PET2', 1527302714691, 50, 10, 'daniel', true, 10, true, 5, 'DOENTE');

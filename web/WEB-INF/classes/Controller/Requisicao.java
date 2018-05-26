@@ -25,10 +25,11 @@ public class Requisicao extends HttpServlet{
         String dbUser = context.getInitParameter("user");
         String dbPasswd = context.getInitParameter("password");
         String database = context.getInitParameter("database");
-        String table = context.getInitParameter("table");
+        String tableUsuario = context.getInitParameter("tableUsuario");
+        String tablePet = context.getInitParameter("tablePet");
 
         try {
-            dao = new Model.DAO(database, table, dbUser, dbPasswd);
+            dao = new Model.DAO(database, tableUsuario, tablePet, dbUser, dbPasswd);
         } catch (Exception ex) {
             System.out.println("Erro ao criar conexao com o BD: " + ex);
         }
@@ -56,24 +57,18 @@ public class Requisicao extends HttpServlet{
         if(login != null){
             // cria uma instancia de Login e executa o login
             // porem o login apenas escreve na pagina do usuario, ainda nao esta fazendo login
-            try{
-                if(new Login(request, response, dao).executa()){
-                    System.out.println("retorna");
-                    response.sendRedirect("tamagotchi.jsp");
-                }
-            } catch (Exception ex) {
-                System.out.println("Erro ao realizar o login: " + ex);
+            if(new Login(request, response, dao).executa()){
+                response.sendRedirect("tamagotchi.jsp");
+            } else {
+                // tem que retornar a pagina dizendo que o login nao esta correto
+                response.getOutputStream().print("Login invalido");
             }
         } else {
-
-            try{
-                // cria uma instancia de cadastro e executa o cadastro
-                // ja estah fazendo o cadastro
-                if(new Cadastro(request, response, dao).executa()){
-                    response.sendRedirect("login.jsp");
-                }
-            } catch (Exception ex) {
-                System.out.println("Erro ao realizar o cadastro: " + ex);
+            if(new Cadastro(request, response, dao).insertUsuario()){
+                response.sendRedirect("login.jsp");
+            } else {
+                response.getOutputStream().print("cadastro invalido.");
+                // tem que retornar a pagina dizendo que o cadastro nao esta correto
             }
         }
     }
