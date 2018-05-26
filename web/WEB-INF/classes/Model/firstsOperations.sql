@@ -31,7 +31,7 @@ CREATE TYPE STATUS AS ENUM('NORMAL', 'DOENTE', 'CANSADO', 'SUJO', 'TRISTE', 'DOR
 CREATE TABLE IF NOT EXISTS pet (
     id SERIAL NOT NULL,
     nome varchar(20) not null,
-    ultimoAcesso TIMESTAMP not null,
+    ultimoAcesso BIGINT not null,
     felicidade integer not null,
     qtdToques integer not null,
     dono varchar(20) not null,
