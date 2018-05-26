@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS usuario (
 CREATE TYPE STATUS AS ENUM('NORMAL', 'DOENTE', 'CANSADO', 'SUJO', 'TRISTE', 'DORMINDO', 'MORTO');
 
 CREATE TABLE IF NOT EXISTS pet (
-    nome varchar(20) not null PRIMARY KEY,
+    id SERIAL NOT NULL,
+    nome varchar(20) not null,
     ultimoAcesso TIMESTAMP not null,
     felicidade integer not null,
     qtdToques integer not null,

@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,11 +14,44 @@
         <title>Tamagotchi</title>
     </head>
     <body>
+
+        <%
+            Connection conn = null;
+            ResultSet result = null;
+            Statement stmt = null;
+            ResultSetMetaData rsmd = null;
+
+            try{
+                Class c = Class.forName("org.postgresql.Driver");
+            } catch (Exception ex) {
+                System.out.println("Error na conexao: " + ex);
+            }
+
+            try{
+                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lp", "postgres", "postgresAdmin");
+            } catch (Exception ex) {
+                System.out.println("Erro ao conectar: " + ex);
+            }
+
+            try{
+                stmt = conn.createStatement();
+                result = stmt.executeQuery("SELECT nome from pet where id = 1;");
+                result.next();
+                System.out.println(result.getString("nome"));
+                String name = result.getString("nome");
+                request.setAttribute("name", name);
+            } catch (Exception ex) {
+                System.out.println("Erro ao executar o select: " + ex);
+            } finally {
+                stmt.close();
+                conn.close();
+            }
+        %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid" id="telaTama">
             
             <div id="menu">
-                <div class = "status">Felicidade
+                <div class = "status">${name}
                     <div class="progress">
                     <div id="felicidade" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
                     </div>

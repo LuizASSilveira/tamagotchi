@@ -36,10 +36,18 @@
         <servlet-name>Requisicao</servlet-name>
         <servlet-class>Requisicao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Json</servlet-name>
+        <servlet-class>Json</servlet-class>
+    </servlet>
 
     <!-- a localizacao de cada servlet -->
     <servlet-mapping>
         <servlet-name>Requisicao</servlet-name>
         <url-pattern>/Controller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Json</servlet-name>
+        <url-pattern>/View</url-pattern>
     </servlet-mapping>
 </web-app>
