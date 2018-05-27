@@ -22,7 +22,7 @@
 
         try{
             stmt = conn.createStatement();
-            result = stmt.executeQuery("SELECT id, nome, vida, dataCriacao from pet;");
+            result = stmt.executeQuery("SELECT nome, vida, dataCriacao from pet;");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select: " + ex);
         }

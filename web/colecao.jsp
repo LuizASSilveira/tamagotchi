@@ -22,7 +22,7 @@
 
         try{
             stmt = conn.createStatement();
-            result = stmt.executeQuery("SELECT id, nome, vida, dataCriacao from pet where dono = 'daniel';");
+            result = stmt.executeQuery("SELECT id, nome, vida, dataCriacao from pet where dono = 'luiz';");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select: " + ex);
         }
@@ -45,6 +45,10 @@
         <div class="container-fluid">
 
             <h2> Coleção</h2>
+            <!-- Button trigger modal -->
+            <button id="botaoModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Novo
+            </button>
             <table class="table">
                   <thead class="thead-dark">
                     <tr>
@@ -69,11 +73,34 @@
                                     <td>${dataCriacao}</td>
                                     <td>${nome}</td>
                                     <td>${vida}</td>
-                                    <td>${id}</td>
+                                    <td style="display:none" >${id}</td>
                                 </tr>
                             <% } %>
                   </tbody>
                 </table>
         </div>
+                  
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Novo Amigo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    De um nome pro seu amigo, Ótario..
+                  <input placeholder="Nome" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                    <button type="button" class="btn btn-primary">Criar Amigo</button>
+                  </div>
+                </div>
+              </div>
+            </div>                  
+
     </body>
 </html>
