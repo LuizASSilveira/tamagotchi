@@ -38,18 +38,18 @@ public class DAO {
     public void insertPet(String dono, String nome) throws SQLException{
         // este comando eh o insert, so vamos dar um insert quando for um cadastro
         // entao os outros parametros - hunger, healt ... - passa tudo como 100%.
-        Timestamp timestampj = new Timestamp(System.currentTimeMillis());;
+        long timestampj = System.currentTimeMillis();
         insertPet(dono, nome, 100, 1000000, true, 100, 100, 100, true, timestampj);
     }
 
-    private void insertPet(String dono, String nome, int felicidade, int qtdToques, boolean lampada, int saude, int vida, int fome, boolean status, Timestamp ultimoAcesso) throws SQLException{
+    private void insertPet(String dono, String nome, int felicidade, int qtdToques, boolean lampada, int saude, int vida, int fome, boolean status, long ultimoAcesso) throws SQLException{
         getConnection();
 
         String sql = "insert into " + tablePet + " (nome, ultimoAcesso, felicidade, qtdToques, dono, lampada, saude, vida, fome, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stm = connection.prepareStatement(sql);
 
         stm.setString(1, nome);
-        stm.setTimestamp(2, ultimoAcesso);
+        stm.setLong(2, ultimoAcesso);
         stm.setInt(3, felicidade);
         stm.setInt(4, qtdToques);
         stm.setString(5, dono);
@@ -86,5 +86,34 @@ public class DAO {
 
         closeConnection();
         return res.next();
+    }
+
+    public long getLastTime(int id) {
+        try{
+            getConnection();
+            String sql = "SELECT ultimoAcesso from pet where id = id";
+            ResultSet rs = getCommand(sql);
+
+            rs.next();
+            closeConnection();
+
+            return rs.getLong("ultimoAcesso");
+        } catch (Exception ex) {
+            return -1;
+        }
+    }
+
+    public void update(int fome, int saude, int felicidade, String status, long agora, int id){
+        try{
+            getConnection();
+
+            String sql = "update pet set fome = " + fome + ", saude = " + saude + ", felicidade = " + felicidade + ", status = '" + status + "', ultimoAcesso = " + agora + " where id = " + id + ";";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.executeUpdate();
+
+            closeConnection();
+        } catch (Exception ex) {
+            System.out.println("Erro ao atualizar no banco");
+        }
     }
 }

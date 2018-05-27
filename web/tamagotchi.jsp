@@ -35,11 +35,13 @@
 
             try{
                 stmt = conn.createStatement();
-                result = stmt.executeQuery("SELECT nome from pet where id = 1;");
+                result = stmt.executeQuery("SELECT felicidade, saude, fome  from pet where id = 1;");
                 result.next();
-                System.out.println(result.getString("nome"));
-                String name = result.getString("nome");
-                request.setAttribute("name", name);
+
+                request.setAttribute("saude", result.getInt("saude"));
+                request.setAttribute("fome", result.getInt("fome"));
+                request.setAttribute("felicidade", result.getInt("felicidade"));
+
             } catch (Exception ex) {
                 System.out.println("Erro ao executar o select: " + ex);
             } finally {
@@ -49,40 +51,32 @@
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid" id="telaTama">
-            
-            <div id="menu">
-                <div class = "status">${name}
-                    <div class="progress">
-                    <div id="felicidade" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                    </div>
 
+            <div id="menu">
+                <div class = "status"> Felicidade
+                    <div class="progress">
+                    <div id="felicidade" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${felicidade}%"></div>
+                    </div>
                 </div>
 
-                <div class = "status"> Vida
+                <div class = "status"> Saude
                     <div class="progress">
-                    <div id="vida" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    <div id="vida" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${saude}%"></div>
                     </div>
-
                 </div>
 
                 <div class = "status">Fome
                     <div class="progress">
-                    <div id="fome" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    <div id="fome" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${fome}%"></div>
                     </div>
                 </div>
             </div>
-        
+
         <div id = "Personagem">
-            
-
-
-
-
         </div>
-
             <div id="menuActions">
                 <div id="actions">
-                  
+
                     <button type="button" class="btn btn-outline-dark">Alimentar</button>
                     <button type="button" class="btn btn-outline-dark">Banheiro</button>
                     <button type="button" class="btn btn-outline-dark">Jogar</button>
