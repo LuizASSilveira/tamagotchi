@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.DAO;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Random;
 
@@ -16,6 +18,7 @@ import java.util.Random;
  */
 public class VPet {
 
+    private long ultimoAcesso;
     private boolean lampada;
     private int felicidade;
     private int qtdToques;
@@ -28,67 +31,115 @@ public class VPet {
     private int fome;
     private int id;
 
-    public VPet(boolean lampada, int felicidade, int qtdToques, String status, DAO dao, boolean vida, String dono, String nome, int saude, int fome, int id) {
-        this.lampada = lampada;
-        this.felicidade = felicidade;
-        this.qtdToques = qtdToques;
-        this.status = status;
-        this.dao = dao;
-        this.vida = vida;
-        this.dono = dono;
-        this.nome = nome;
-        this.saude = saude;
-        this.fome = fome;
-        this.id = id;
+    public VPet(ResultSet result) throws SQLException, ClassNotFoundException {
+        this.lampada = result.getBoolean(7);
+        this.felicidade = result.getInt(4);
+        this.status = result.getString(11);
+        this.qtdToques = result.getInt(5);
+        ultimoAcesso = result.getLong(3);
+        this.vida = result.getBoolean(9);
+        this.dono = result.getString(6);
+        this.nome = result.getString(2);
+        this.saude = result.getInt(8);
+        this.fome = result.getInt(10);
+        this.id = result.getInt(1);
+
+        dao = new Model.DAO("lp", "usuario", "pet", "postgres", "root");
+
+        update();
     }
     
     public void update(){
-        long ultimoAcesso = dao.getLastTime(id);
         long agora = System.currentTimeMillis();
-        long deltaTime = agora - ultimoAcesso;
+        long deltaTime = (int) (agora - ultimoAcesso)/3000;
 
-        int saudeR;
-        int felicidadeR;
-        int fomeR;
-        Random gerador = new Random();
+        float saudeR;
+        float felicidadeR;
+        float fomeR;
 
         switch(status){
             case "NORMAL":
-                saudeR = 1;
-                felicidadeR = 4;
-                fomeR = 3;
+                saudeR = (float) 0.4;
+                felicidadeR = (float) 1.5;
+                fomeR = (float) 1.7;
 
-                fome -= (fomeR * (gerador.nextInt((int)(1.2-0.8)) + 0.8) + deltaTime);
-                saude -= (saudeR * (gerador.nextInt((int)(1.2-0.8)) + 0.8) + deltaTime);
-                felicidade -= (felicidadeR * (gerador.nextInt((int)(1.2-0.8)) + 0.8) + deltaTime);
-
-               
+                fome -= (fomeR * deltaTime);
+                saude -= (saudeR * deltaTime);
+                felicidade -= (felicidadeR * deltaTime);
             break;
 
             case "DOENTE":
+                saudeR = (float) 0.8;
+                felicidadeR = (float) 2;
+                fomeR = (float) 1;
+
+                fome -= (fomeR * deltaTime);
+                saude -= (saudeR * deltaTime);
+                felicidade -= (felicidadeR * deltaTime);
             break;
+
             case "CANSADO":
+                saudeR = (float) 0.3;
+                felicidadeR = (float) 1.5;
+                fomeR = (float) 2.5;
+
+                fome -= (fomeR * deltaTime);
+                saude -= (saudeR * deltaTime);
+                felicidade -= (felicidadeR * deltaTime);
             break;
+
             case "SUJO":
+                saudeR = (float) 2;
+                felicidadeR = (float) 1.5;
+                fomeR = (float) 1.7;
+
+                fome -= (fomeR * deltaTime);
+                saude -= (saudeR * deltaTime);
+                felicidade -= (felicidadeR * deltaTime);
             break;
+
             case "TRISTE":
+                saudeR = (float) 0.8;
+                felicidadeR = (float) 3;
+                fomeR = (float) 1;
+
+                fome -= (fomeR * deltaTime);
+                saude -= (saudeR * deltaTime);
+                felicidade -= (felicidadeR * deltaTime);
             break;
+
             case "DORMINDO":
+                saudeR = (float) 0.2;
+                felicidadeR = (float) 0.4;
+                fomeR = (float) 0.8;
+
+                fome -= (fomeR * deltaTime);
+                saude -= (saudeR * deltaTime);
+                felicidade -= (felicidadeR * deltaTime);
             break;
+
             case "MORTO":
+                fome = 0;
+                saude = 0;
+                felicidade = 0;
             break;
         }
 
         if(felicidade < 25){
             status = "TRISTE";
+            System.out.println("Trocou para triste");
         } else if(saude < 25){
             status = "DOENTE";
+            System.out.println("Trocou para doente");
         } else if(fome < 35){
             status = "CANSADO";
-        } else if(felicidade <= 0 || saude <= 0 || fome <= 0){
+            System.out.println("Trocou para cansado");
+        }
+
+        if(felicidade <= 0 || saude <= 0 || fome <= 0){
             status = "MORTO";
         }
-        
+
         dao.update(fome, saude, felicidade, status, agora, id);
     }
 

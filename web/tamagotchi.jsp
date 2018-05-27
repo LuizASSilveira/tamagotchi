@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@page import="Controller.VPet"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,26 +29,28 @@
             }
 
             try{
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lp", "postgres", "postgresAdmin");
+                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lp", "postgres", "root");
             } catch (Exception ex) {
                 System.out.println("Erro ao conectar: " + ex);
             }
 
             try{
                 stmt = conn.createStatement();
-                result = stmt.executeQuery("SELECT felicidade, saude, fome  from pet where id = 1;");
+                result = stmt.executeQuery("SELECT * from pet where id = 1;");
+                result.next();
+                VPet pet = new VPet(result);
+
+                result = stmt.executeQuery("SELECT * from pet where id = 1;");
                 result.next();
 
                 request.setAttribute("saude", result.getInt("saude"));
                 request.setAttribute("fome", result.getInt("fome"));
                 request.setAttribute("felicidade", result.getInt("felicidade"));
-
             } catch (Exception ex) {
                 System.out.println("Erro ao executar o select: " + ex);
-            } finally {
-                stmt.close();
-                conn.close();
             }
+
+            
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid" id="telaTama">
@@ -86,5 +89,8 @@
                 </div>
             </div>
         </div>
+        <script>
+            setTimeout(function(){ location.reload();}, 3000);
+        </script>
     </body>
 </html>

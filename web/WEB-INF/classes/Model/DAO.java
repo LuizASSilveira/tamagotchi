@@ -15,7 +15,6 @@ public class DAO {
     public DAO (String database, String tableUsuario, String tablePet, String user, String password) throws SQLException, ClassNotFoundException{
         Class.forName("org.postgresql.Driver");
 
-        System.out.println("Iniciando servidor MODEL com tabelas: " + tablePet + " e " + tableUsuario);
         this.tableUsuario = tableUsuario;
         this.tablePet = tablePet;
         this.password = password;
@@ -88,21 +87,6 @@ public class DAO {
         return res.next();
     }
 
-    public long getLastTime(int id) {
-        try{
-            getConnection();
-            String sql = "SELECT ultimoAcesso from pet where id = id";
-            ResultSet rs = getCommand(sql);
-
-            rs.next();
-            closeConnection();
-
-            return rs.getLong("ultimoAcesso");
-        } catch (Exception ex) {
-            return -1;
-        }
-    }
-
     public void update(int fome, int saude, int felicidade, String status, long agora, int id){
         try{
             getConnection();
@@ -113,7 +97,7 @@ public class DAO {
 
             closeConnection();
         } catch (Exception ex) {
-            System.out.println("Erro ao atualizar no banco");
+            System.out.println("Erro ao atualizar no banco: " + ex);
         }
     }
 }
