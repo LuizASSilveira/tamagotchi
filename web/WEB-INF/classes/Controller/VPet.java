@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DAO;
 import java.sql.Timestamp;
 import java.util.Random;
 
@@ -27,6 +28,20 @@ public class VPet {
     private int fome;
     private int id;
 
+    public VPet(boolean lampada, int felicidade, int qtdToques, String status, DAO dao, boolean vida, String dono, String nome, int saude, int fome, int id) {
+        this.lampada = lampada;
+        this.felicidade = felicidade;
+        this.qtdToques = qtdToques;
+        this.status = status;
+        this.dao = dao;
+        this.vida = vida;
+        this.dono = dono;
+        this.nome = nome;
+        this.saude = saude;
+        this.fome = fome;
+        this.id = id;
+    }
+    
     public void update(){
         long ultimoAcesso = dao.getLastTime(id);
         long agora = System.currentTimeMillis();
@@ -47,15 +62,7 @@ public class VPet {
                 saude -= (saudeR * (gerador.nextInt((int)(1.2-0.8)) + 0.8) + deltaTime);
                 felicidade -= (felicidadeR * (gerador.nextInt((int)(1.2-0.8)) + 0.8) + deltaTime);
 
-                if(felicidade < 25){
-                    status = "TRISTE";
-                } else if(saude < 25){
-                    status = "DOENTE";
-                } else if(fome < 35){
-                    status = "CANSADO";
-                } else if(felicidade <= 0 || saude <= 0 || fome <= 0){
-                    status = "MORTO";
-                }
+               
             break;
 
             case "DOENTE":
@@ -72,6 +79,18 @@ public class VPet {
             break;
         }
 
+        if(felicidade < 25){
+            status = "TRISTE";
+        } else if(saude < 25){
+            status = "DOENTE";
+        } else if(fome < 35){
+            status = "CANSADO";
+        } else if(felicidade <= 0 || saude <= 0 || fome <= 0){
+            status = "MORTO";
+        }
+        
         dao.update(fome, saude, felicidade, status, agora, id);
     }
+
+   
 }
