@@ -22,7 +22,7 @@
 
         try{
             stmt = conn.createStatement();
-            result = stmt.executeQuery("SELECT id, nome, vida, dataCriacao from pet where dono = 'daniel';");
+            result = stmt.executeQuery("SELECT id, nome, vida, dataCriacao from pet;");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select: " + ex);
         }
@@ -38,19 +38,20 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/colecao.css">
         <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet"> 
-        <title>Coleção</title>
+        <title>Ranking</title>
     </head>
     <body>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid">
 
-            <h2> Coleção</h2>
+            <h2>Word Ranking</h2>
             <table class="table">
                   <thead class="thead-dark">
                     <tr>
-                      <th width="15%" scope="col">Pontuação</th>
-                      <th width="30%"  scope="col">Bichinho</th>
-                      <th width="30%"  scope="col">Estado</th>
+                      <th width="20%" scope="col">Pontuação</th>
+                      <th width="40%"  scope="col">Bichinho</th>
+                      <th width="40%"  scope="col">Estado</th>
+                      
                     </tr>
                   </thead>
                   <tbody>

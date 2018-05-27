@@ -6,7 +6,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>tamagotchi.jsp</welcome-file>
+        <welcome-file>colecao.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- Parametros iniciais. Estes são recuperados lah no classe Requisicao -->
