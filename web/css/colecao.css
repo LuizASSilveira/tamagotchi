@@ -1,3 +1,9 @@
+body{
+    margin-top: 5%;
+    background-image: url(../photos/fundo.png);
+    text-align: center;
+}
+
 .container-fluid{
 	width: 40%;
 	text-align: center;
