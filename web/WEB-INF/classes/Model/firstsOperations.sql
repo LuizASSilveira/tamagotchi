@@ -40,5 +40,10 @@ CREATE TABLE IF NOT EXISTS pet (
     vida boolean not null, -- CAMPO SE ELE ESTA VIVO OU MORTO
     fome integer not null,
     status STATUS,
+    dataCriacao BIGINT not null,
+    tipo integer not null,
     FOREIGN KEY (dono) REFERENCES usuario(usuario)
 );
+
+insert into pet (nome, ultimoacesso, felicidade, qtdtoques, dono, lampada, saude, vida, fome, status, dataCriacao, tipo) values ('PET2', 1527302714691, 50, 10, 'daniel', true, 10, true, 5, 'NORMAL', 1527302714691, 1);
+update pet set felicidade = 50, saude = 50, fome = 50, status = 'NORMAL', ultimoacesso = 1527465573961 where id = 1;

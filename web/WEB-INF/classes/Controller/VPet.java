@@ -19,6 +19,7 @@ import java.util.Random;
 public class VPet {
 
     private long ultimoAcesso;
+    private long dataCriacao;
     private boolean lampada;
     private int felicidade;
     private int qtdToques;
@@ -29,6 +30,7 @@ public class VPet {
     private String nome;
     private int saude;
     private int fome;
+    private int tipo;
     private int id;
 
     public VPet(ResultSet result) throws SQLException, ClassNotFoundException {
@@ -37,12 +39,14 @@ public class VPet {
         this.status = result.getString(11);
         this.qtdToques = result.getInt(5);
         ultimoAcesso = result.getLong(3);
+        dataCriacao = result.getLong(12);
         this.vida = result.getBoolean(9);
         this.dono = result.getString(6);
         this.nome = result.getString(2);
         this.saude = result.getInt(8);
         this.fome = result.getInt(10);
         this.id = result.getInt(1);
+        tipo = result.getInt(13);
 
         dao = new Model.DAO("lp", "usuario", "pet", "postgres", "root");
 

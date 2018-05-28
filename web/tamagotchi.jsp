@@ -49,8 +49,6 @@
             } catch (Exception ex) {
                 System.out.println("Erro ao executar o select: " + ex);
             }
-
-            
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid" id="telaTama">
