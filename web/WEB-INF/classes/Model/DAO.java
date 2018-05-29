@@ -49,7 +49,7 @@ public class DAO {
     private void insertPet(String dono, String nome, int felicidade, int qtdToques, int saude, int fome, String status, long ultimoAcesso) throws SQLException{
         getConnection();
 
-        String sql = "insert into " + tablePet + " (nome, ultimoacesso, felicidade, qtdtoques, dono, lampada, saude, vida, fome, status, dataCriacao, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into " + tablePet + " (nome, ultimoacesso, felicidade, qtdtoques, dono, lampada, saude, vida, fome, dataCriacao, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stm = connection.prepareStatement(sql);
 
         System.out.println("String original:");
@@ -67,13 +67,14 @@ public class DAO {
         System.out.println(stm.toString());
         stm.setInt(9, fome);
         System.out.println(stm.toString());
-        stm.setString(10, status);
+        //stm.setNString(10, status);
         System.out.println(stm.toString());
-        stm.setLong(11, System.currentTimeMillis());
+        stm.setLong(10, System.currentTimeMillis());
         System.out.println(stm.toString());
-        stm.setInt(12, 1);
+        stm.setInt(11, 1);
 
 
+        System.out.println("Inserindooooooooooooooooooooooooooooooooooooo");
         // insere no banco
         stm.executeUpdate();
         System.out.println("Executado o insert");
