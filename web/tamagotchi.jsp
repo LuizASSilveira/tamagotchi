@@ -19,12 +19,13 @@
 
         <%
             try{
+                Cookie[] cookie = request.getCookies();
                 DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-                ResultSet result = dao.getCommand("SELECT * from pet where id = 1;");
+                ResultSet result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() +";");
                 result.next();
                 VPet pet = new VPet(result);
 
-                result = dao.getCommand("SELECT * from pet where id = 1;");
+                result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() +";");
                 result.next();
 
                 request.setAttribute("saude", result.getInt("saude"));

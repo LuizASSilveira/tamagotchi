@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 
     <%!
-        public void novoPet(){
+        
+        public void recuperandoId(int id){
             System.out.println("Entrou aqui");
-            //String nomePet = request.getParameter("nomePet");
-            //System.out.println("Nome do pet: " + nomePet);
         }
+
         public long tempoVida(long criacao){
             long agora = System.currentTimeMillis();
             long segundosAtual = agora / 1000;
@@ -61,6 +61,7 @@
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/colecao.css">
         <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet"> 
@@ -75,7 +76,7 @@
             <button id="botaoModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Novo
             </button>
-            <table class="table">
+            <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th width="15%" scope="col">Tempo de Vida</th>
@@ -132,5 +133,11 @@
               </div>
             </div>                  
 
+            <script>
+                $('tr').dblclick(function(){
+                    $.cookie('petId', $(this).children()[3].textContent);
+                    window.location.href = "tamagotchi.jsp";
+                });
+            </script>
     </body>
 </html>
