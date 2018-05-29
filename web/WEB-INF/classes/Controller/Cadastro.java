@@ -30,4 +30,22 @@ public class Cadastro {
             return false;
         }
     }
+
+    public boolean insertPet(){
+        // recuperando as informacoes que o usuario passou pelo form
+        //String username = request.getParameter("username");
+        System.out.println("veio aqui");
+        String dono = "luiz";
+        String nomePet = request.getParameter("nomePet");
+
+        try{
+            System.out.println("INSERINDO LAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+            dao.insertPet(dono, nomePet);
+            System.out.println("terminou");
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Erro ao inserir pet: " + ex);
+            return false;
+        }
+    }
 }

@@ -1,30 +1,55 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.sql.*"%>
+<%@page import="Model.DAO"%>
 <!DOCTYPE html>
 
+    <%!
+        public void novoPet(){
+            System.out.println("Entrou aqui");
+            //String nomePet = request.getParameter("nomePet");
+            //System.out.println("Nome do pet: " + nomePet);
+        }
+        public long tempoVida(long criacao){
+            long agora = System.currentTimeMillis();
+            long segundosAtual = agora / 1000;
+            long minutosAtual = segundosAtual / 60;
+            segundosAtual = segundosAtual % 60;
+            long horasAtual = minutosAtual / 60;
+            minutosAtual = minutosAtual % 60;
+
+            long segundosCriacao = criacao / 1000;
+            long minutosCriacao = segundosCriacao / 60;
+            segundosCriacao = segundosCriacao % 60;
+            long horasCriacao = minutosCriacao / 60;
+            minutosCriacao = minutosCriacao % 60;
+
+            try{
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                Date horaIni = sdf.parse(String.format ("%02d:%02d:%02d", horasCriacao, minutosCriacao, segundosCriacao));
+                Date horaFim = sdf.parse(String.format ("%02d:%02d:%02d", horasAtual, minutosAtual, segundosAtual));
+
+                double horaI = horaIni.getTime();
+                double horaF = horaFim.getTime();
+
+                System.out.println("fazendo isso: " + ((long) horaF - (long) horaI));
+                return (long) horaF - (long) horaI;
+            } catch (Exception ex) {
+                System.out.println("Erro ao calcular pontuacao: " + ex);
+                return -1L;
+            }
+        }
+    
+    %>
+
     <%
-        Connection conn = null;
         ResultSet result = null;
-        Statement stmt = null;
-        ResultSetMetaData rsmd = null;
-
         try{
-            Class c = Class.forName("org.postgresql.Driver");
+            DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
+            result = dao.getCommand("SELECT id, nome, vida, dataCriacao from pet where dono = 'luiz';");
         } catch (Exception ex) {
-            System.out.println("Error na conexao: " + ex);
-        }
-
-        try{
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lp", "postgres", "root");
-        } catch (Exception ex) {
-            System.out.println("Erro ao conectar: " + ex);
-        }
-
-        try{
-            stmt = conn.createStatement();
-            result = stmt.executeQuery("SELECT id, nome, vida, dataCriacao from pet where dono = 'luiz';");
-        } catch (Exception ex) {
-            System.out.println("Erro ao executar o select: " + ex);
+            System.out.println("Erro ao executar o select da pagina colecao: " + ex);
         }
         %>
 <html>
@@ -50,32 +75,34 @@
                 Novo
             </button>
             <table class="table">
-                  <thead class="thead-dark">
+                <thead class="thead-dark">
                     <tr>
-                      <th width="15%" scope="col">Pontuação</th>
-                      <th width="30%"  scope="col">Bichinho</th>
-                      <th width="30%"  scope="col">Estado</th>
+                        <th width="15%" scope="col">Tempo de Vida</th>
+                        <th width="30%"  scope="col">Bichinho</th>
+                         <th width="30%"  scope="col">Estado</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                      <%
-                            while(result.next()){
-                                String nome = result.getString(2);
-                                boolean vida = result.getBoolean(3);
-                                long dataCriacao = result.getLong(4);
-                                int id = result.getInt(1);
-                                request.setAttribute("dataCriacao", dataCriacao);
-                                request.setAttribute("nome", nome);
-                                request.setAttribute("vida", vida);
-                                request.setAttribute("id", id);
-                                %>
-                                <tr>
-                                    <td>${dataCriacao}</td>
-                                    <td>${nome}</td>
-                                    <td>${vida}</td>
-                                    <td style="display:none" >${id}</td>
-                                </tr>
-                            <% } %>
+                </thead>
+                <tbody>
+                    <%
+                        while(result.next()){
+                            String nome = result.getString(2);
+                            boolean vida = result.getBoolean(3);
+                            long dataCriacao = result.getLong(4);
+                            long agora = System.currentTimeMillis();
+                            int id = result.getInt(1);
+
+                            request.setAttribute("tempovida", tempoVida(dataCriacao));
+                            request.setAttribute("nome", nome);
+                            request.setAttribute("vida", vida);
+                            request.setAttribute("id", id);
+                    %>
+                            <tr>
+                                <td>${tempovida}</td>
+                                <td>${nome}</td>
+                                <td>${vida?"Vivo":"Morto"}</td>
+                                <td style="display:none" >${id}</td>
+                            </tr>
+                        <% } %>
                   </tbody>
                 </table>
         </div>
@@ -90,14 +117,16 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+                <form method="POST" action="Requisicao">
                   <div class="modal-body">
                     De um nome pro seu amigo, Ótario..
-                  <input placeholder="Nome" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">  
+                  <input name="nomePet" placeholder="Nome" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
-                    <button type="button" class="btn btn-primary">Criar Amigo</button>
+                    <button type="submit" value="submit" class="btn btn-primary">Criar Amigo</button>
                   </div>
+                </form>
                 </div>
               </div>
             </div>                  

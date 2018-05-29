@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS pet (
     fome integer not null,
     status STATUS,
     dataCriacao BIGINT not null,
-    tipo integer not null,
+    tipo integer not null,  -- acho q eh o tipo da foto do pet
     FOREIGN KEY (dono) REFERENCES usuario(usuario)
 );
 

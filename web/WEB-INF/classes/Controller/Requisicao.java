@@ -58,17 +58,30 @@ public class Requisicao extends HttpServlet{
             // cria uma instancia de Login e executa o login
             // porem o login apenas escreve na pagina do usuario, ainda nao esta fazendo login
             if(new Login(request, response, dao).executa()){
-                response.sendRedirect("tamagotchi.jsp");
+                response.sendRedirect("colecao.jsp");
             } else {
                 // tem que retornar a pagina dizendo que o login nao esta correto
                 response.getOutputStream().print("Login invalido");
             }
+        // entao eh um cadastro
         } else {
-            if(new Cadastro(request, response, dao).insertUsuario()){
-                response.sendRedirect("login.jsp");
+            String nomePet = request.getParameter("nomePet");
+            // se tiver o nomePet, entao eh um cadastro de novo pet
+            if(nomePet != null){
+                if(new Cadastro(request, response, dao).insertPet()){
+                    response.sendRedirect("colecao.jsp");
+                    System.out.println("inseriu o pet");
+                } else {
+                    System.out.println("Nao inseriu o pet");
+                    response.getOutputStream().print("Nome Pet invalido");
+                }
             } else {
-                response.getOutputStream().print("cadastro invalido.");
-                // tem que retornar a pagina dizendo que o cadastro nao esta correto
+                if(new Cadastro(request, response, dao).insertUsuario()){
+                    response.sendRedirect("login.jsp");
+                } else {
+                    response.getOutputStream().print("cadastro invalido.");
+                    // tem que retornar a pagina dizendo que o cadastro nao esta correto
+                }
             }
         }
     }
