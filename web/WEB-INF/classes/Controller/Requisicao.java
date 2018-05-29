@@ -9,6 +9,7 @@ import javax.servlet.ServletConfig;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/Requisicao")
 public class Requisicao extends HttpServlet{
@@ -43,7 +44,6 @@ public class Requisicao extends HttpServlet{
     /**
      *
      * @throws IOException
-     * @throws SQLException
      */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,6 +58,8 @@ public class Requisicao extends HttpServlet{
             // cria uma instancia de Login e executa o login
             // porem o login apenas escreve na pagina do usuario, ainda nao esta fazendo login
             if(new Login(request, response, dao).executa()){
+                HttpSession sessao = request.getSession();
+                sessao.setAttribute("usuario", login);
                 response.sendRedirect("colecao.jsp");
             } else {
                 // tem que retornar a pagina dizendo que o login nao esta correto

@@ -46,8 +46,9 @@
     <%
         ResultSet result = null;
         try{
+            String user = (String) session.getAttribute("usuario");
             DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-            result = dao.getCommand("SELECT id, nome, vida, dataCriacao from pet where dono = 'luiz';");
+            result = dao.getCommand("SELECT id, nome, vida, dataCriacao from pet where dono = '" + user + "';");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select da pagina colecao: " + ex);
         }

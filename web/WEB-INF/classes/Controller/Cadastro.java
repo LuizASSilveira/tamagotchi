@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class Cadastro {
 
@@ -34,14 +35,13 @@ public class Cadastro {
     public boolean insertPet(){
         // recuperando as informacoes que o usuario passou pelo form
         //String username = request.getParameter("username");
-        System.out.println("veio aqui");
-        String dono = "luiz";
+        HttpSession sessao = request.getSession();
+
+        String dono = (String) sessao.getAttribute("usuario");
         String nomePet = request.getParameter("nomePet");
 
         try{
-            System.out.println("INSERINDO LAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
             dao.insertPet(dono, nomePet);
-            System.out.println("terminou");
             return true;
         } catch (Exception ex) {
             System.out.println("Erro ao inserir pet: " + ex);

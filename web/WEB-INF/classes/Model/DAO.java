@@ -67,17 +67,13 @@ public class DAO {
         System.out.println(stm.toString());
         stm.setInt(9, fome);
         System.out.println(stm.toString());
-        //stm.setNString(10, status);
         System.out.println(stm.toString());
         stm.setLong(10, System.currentTimeMillis());
         System.out.println(stm.toString());
         stm.setInt(11, 1);
 
-
-        System.out.println("Inserindooooooooooooooooooooooooooooooooooooo");
         // insere no banco
         stm.executeUpdate();
-        System.out.println("Executado o insert");
         closeConnection();
     }
 
