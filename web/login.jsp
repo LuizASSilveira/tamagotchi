@@ -22,8 +22,8 @@
                 <form method="POST" action="Requisicao">
                     <br>
                     Nome<br>
-                    <input type="text" class="login" name="login">
-                    <br>    
+                    <input type="text" class="login" name="login" id="login">
+                    <br>
                     Senha<br>
                     <input type="password" class="login" name="password">
                     <br>

@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS pet (
     saude integer not null,
     vida boolean not null, -- CAMPO SE ELE ESTA VIVO OU MORTO
     fome integer not null,
-    status STATUS,
+    status STATUS default 'NORMAL',
     dataCriacao BIGINT not null,
-    tipo integer not null,
+    tipo integer not null,  -- acho q eh o tipo da foto do pet
     FOREIGN KEY (dono) REFERENCES usuario(usuario)
 );
 

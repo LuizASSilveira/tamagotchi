@@ -37,30 +37,43 @@ public class DAO {
     public void insertPet(String dono, String nome) throws SQLException{
         // este comando eh o insert, so vamos dar um insert quando for um cadastro
         // entao os outros parametros - hunger, healt ... - passa tudo como 100%.
+        System.out.println("Vai inserir aquiiiiiiiiiiiiiiiiiii");
         long timestampj = System.currentTimeMillis();
-        insertPet(dono, nome, 100, 1000000, true, 100, 100, 100, true, timestampj);
+        try{
+            insertPet(dono, nome, 100, 1000000, 100, 100, "NORMAL", timestampj);
+        } catch (Exception ex) {
+            System.out.println("Nao inseriuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu: " + ex);
+        }
     }
 
-    private void insertPet(String dono, String nome, int felicidade, int qtdToques, boolean lampada, int saude, int vida, int fome, boolean status, long ultimoAcesso) throws SQLException{
+    private void insertPet(String dono, String nome, int felicidade, int qtdToques, int saude, int fome, String status, long ultimoAcesso) throws SQLException{
         getConnection();
 
-        String sql = "insert into " + tablePet + " (nome, ultimoAcesso, felicidade, qtdToques, dono, lampada, saude, vida, fome, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into " + tablePet + " (nome, ultimoacesso, felicidade, qtdtoques, dono, lampada, saude, vida, fome, dataCriacao, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stm = connection.prepareStatement(sql);
+
+        System.out.println("String original:");
+        System.out.println(stm.toString());
+        System.out.println("Jah travou");
 
         stm.setString(1, nome);
         stm.setLong(2, ultimoAcesso);
         stm.setInt(3, felicidade);
         stm.setInt(4, qtdToques);
         stm.setString(5, dono);
-        stm.setBoolean(6, lampada);
+        stm.setBoolean(6, true);    // lampada
         stm.setInt(7, saude);
-        stm.setInt(8, vida);
+        stm.setBoolean(8, true);    // vida
+        System.out.println(stm.toString());
         stm.setInt(9, fome);
-        stm.setBoolean(10, status);
+        System.out.println(stm.toString());
+        System.out.println(stm.toString());
+        stm.setLong(10, System.currentTimeMillis());
+        System.out.println(stm.toString());
+        stm.setInt(11, 1);
 
         // insere no banco
         stm.executeUpdate();
-        System.out.println("Executado o insert");
         closeConnection();
     }
 
@@ -69,21 +82,31 @@ public class DAO {
         command = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
     }
 
-    private void closeConnection() throws SQLException {
-        connection.close();
+    private void closeConnection() {
+        try{
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao fechar conexao: " + ex);
+        }
     }
 
-    public ResultSet getCommand(String s) throws SQLException {
-        return command.executeQuery(s);
+    public ResultSet getCommand(String s) {
+        try{
+            getConnection();
+            return command.executeQuery(s);
+        } catch (Exception ex) {
+            System.out.println("Erro ao executar comando: " + ex);
+            return null;
+        } finally{
+            closeConnection();
+        }
     }
 
     public boolean login(String user, String pass) throws SQLException{
-        getConnection();
 
         String comand = "select usuario, senha from " + tableUsuario + " where usuario = '" + user + "' and senha = '" + pass + "';";
         ResultSet res = getCommand(comand);
 
-        closeConnection();
         return res.next();
     }
 
