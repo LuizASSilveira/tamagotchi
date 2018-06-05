@@ -11,8 +11,8 @@
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/game.css">
+        <link   rel="stylesheet" href="css/bootstrap.min.css">
+        <link   rel="stylesheet" href="css/game.css">
         <title>Tamagotchi</title>
     </head>
     <body>
@@ -59,6 +59,9 @@
             </div>
 
         <div id = "Personagem">
+            
+            <img id="imgTama" src="photos/pet1.gif" alt="" width="90" height="100" />
+            
         </div>
             <div id="menuActions">
                 <div id="actions">
@@ -73,7 +76,7 @@
             </div>
         </div>
         <script>
-            setTimeout(function(){ location.reload();}, 3000);
+            //setTimeout(function(){ location.reload();}, 3000);
         </script>
     </body>
 </html>
