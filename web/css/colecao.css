@@ -1,3 +1,9 @@
+body{
+    margin-top: 5%;
+    background-image: url(../photos/fundo.png);
+    text-align: center;
+}
+
 .container-fluid{
 	width: 40%;
 	text-align: center;
@@ -8,6 +14,21 @@ h2{
 }
 table{
 	margin-top: 5%;
-	text-align: center;
-	
+	text-align: center;	
+}
+#basic-url{
+    width: 50%;
+    margin: auto;
+    margin-top: 2%; 
+    text-align: center;
+}
+#exampleModal{
+    text-align: center;    
+}
+#botaoModal{
+    background-color: black;
+    float: right;
+    margin-top: -3%;
+    margin-bottom: 1%; 
+
 }

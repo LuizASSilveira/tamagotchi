@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@page import="Controller.VPet"%>
+<%@page import="Model.DAO"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,37 +18,21 @@
     <body>
 
         <%
-            Connection conn = null;
-            ResultSet result = null;
-            Statement stmt = null;
-            ResultSetMetaData rsmd = null;
-
             try{
-                Class c = Class.forName("org.postgresql.Driver");
-            } catch (Exception ex) {
-                System.out.println("Error na conexao: " + ex);
-            }
+                Cookie[] cookie = request.getCookies();
+                DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
+                ResultSet result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() +";");
+                result.next();
+                VPet pet = new VPet(result);
 
-            try{
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lp", "postgres", "postgresAdmin");
-            } catch (Exception ex) {
-                System.out.println("Erro ao conectar: " + ex);
-            }
-
-            try{
-                stmt = conn.createStatement();
-                result = stmt.executeQuery("SELECT felicidade, saude, fome  from pet where id = 1;");
+                result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() +";");
                 result.next();
 
                 request.setAttribute("saude", result.getInt("saude"));
                 request.setAttribute("fome", result.getInt("fome"));
                 request.setAttribute("felicidade", result.getInt("felicidade"));
-
             } catch (Exception ex) {
-                System.out.println("Erro ao executar o select: " + ex);
-            } finally {
-                stmt.close();
-                conn.close();
+                System.out.println("Erro ao executar o select a pagina tamagotchi: " + ex);
             }
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
@@ -86,5 +72,8 @@
                 </div>
             </div>
         </div>
+        <script>
+            setTimeout(function(){ location.reload();}, 3000);
+        </script>
     </body>
 </html>
