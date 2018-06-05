@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/colecao.jsp</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Controller/Requisicao.java</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/instrucoes.txt</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Model/firstsOperations.sql</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Controller/Cadastro.java</file>
-            <file>file:/C:/Users/Daniel/Documents/GitHub/tamagotchi/web/WEB-INF/classes/Model/DAO.java</file>
+    <file>file:/C:/Users/luiz_/Desktop/Projetos/tamagotchi/web/css/colecao.css</file>
+            <file>file:/C:/Users/luiz_/Desktop/Projetos/tamagotchi/web/css/styles.css</file>
+            <file>file:/C:/Users/luiz_/Desktop/Projetos/tamagotchi/web/css/game.css</file>
+            <file>file:/C:/Users/luiz_/Desktop/Projetos/tamagotchi/web/login.jsp</file>
+            <file>file:/C:/Users/luiz_/Desktop/Projetos/tamagotchi/web/WEB-INF/web.xml</file>
 
         </group>
     </open-files>
