@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 public class Requisicao extends HttpServlet{
 
     Model.DAO dao;
+    Acoes acoes;
 
     // recuperando as informações de banco do arquivo web.xml e criando uma instancia do DAO
     @Override
@@ -31,6 +31,7 @@ public class Requisicao extends HttpServlet{
 
         try {
             dao = new Model.DAO(database, tableUsuario, tablePet, dbUser, dbPasswd);
+            acoes = new Acoes(dao);
         } catch (Exception ex) {
             System.out.println("Erro ao criar conexao com o BD: " + ex);
         }
@@ -65,25 +66,25 @@ public class Requisicao extends HttpServlet{
                 // tem que retornar a pagina dizendo que o login nao esta correto
                 response.getOutputStream().print("Login invalido");
             }
-        // entao eh um cadastro
-        } else {
-            String nomePet = request.getParameter("nomePet");
-            // se tiver o nomePet, entao eh um cadastro de novo pet
-            if(nomePet != null){
-                if(new Cadastro(request, response, dao).insertPet()){
-                    response.sendRedirect("colecao.jsp");
-                    System.out.println("inseriu o pet");
-                } else {
-                    System.out.println("Nao inseriu o pet");
-                    response.getOutputStream().print("Nome Pet invalido");
-                }
+        // se tiver o nomePet, entao eh um cadastro de un novo pet
+        } else if(request.getParameter("nomePet") != null){
+            if(new Cadastro(request, response, dao).insertPet()){
+                response.sendRedirect("colecao.jsp");
+                System.out.println("inseriu o pet");
             } else {
-                if(new Cadastro(request, response, dao).insertUsuario()){
-                    response.sendRedirect("login.jsp");
-                } else {
-                    response.getOutputStream().print("cadastro invalido.");
-                    // tem que retornar a pagina dizendo que o cadastro nao esta correto
-                }
+                System.out.println("Nao inseriu o pet");
+                response.getOutputStream().print("Nome Pet invalido");
+            }
+        // se for um botao
+        } else if(request.getParameter("botao") != null){
+            acoes.alimentar();
+        // entao eh um cadastro de usuario
+        } else {
+            if(new Cadastro(request, response, dao).insertUsuario()){
+                response.sendRedirect("login.jsp");
+            } else {
+                response.getOutputStream().print("cadastro invalido.");
+                // tem que retornar a pagina dizendo que o cadastro nao esta correto
             }
         }
     }

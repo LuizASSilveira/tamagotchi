@@ -1,10 +1,7 @@
 package Controller;
 
-import Model.DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Random;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -145,7 +142,5 @@ public class VPet {
         }
 
         dao.update(fome, saude, felicidade, status, agora, id);
-    }
-
-   
+    }   
 }

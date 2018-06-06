@@ -12,7 +12,7 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <link   rel="stylesheet" href="css/bootstrap.min.css">
-        <link   rel="stylesheet" href="css/game.css">
+        <link rel="stylesheet" href="css/game.css">
         <title>Tamagotchi</title>
     </head>
     <body>
@@ -65,13 +65,11 @@
         </div>
             <div id="menuActions">
                 <div id="actions">
-
                     <button type="button" class="btn btn-outline-dark">Alimentar</button>
                     <button type="button" class="btn btn-outline-dark">Banheiro</button>
                     <button type="button" class="btn btn-outline-dark">Jogar</button>
                     <button type="button" class="btn btn-outline-dark">Curar</button>
                     <button type="button" class="btn btn-outline-dark">Luzes</button>
-
                 </div>
             </div>
         </div>
