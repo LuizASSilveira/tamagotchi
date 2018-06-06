@@ -65,11 +65,13 @@
         </div>
             <div id="menuActions">
                 <div id="actions">
-                    <button type="button" class="btn btn-outline-dark">Alimentar</button>
-                    <button type="button" class="btn btn-outline-dark">Banheiro</button>
-                    <button type="button" class="btn btn-outline-dark">Jogar</button>
-                    <button type="button" class="btn btn-outline-dark">Curar</button>
-                    <button type="button" class="btn btn-outline-dark">Luzes</button>
+                    <form action="Requisicao" method="POST">
+                        <input type="submit" name="Alimentar" class="btn btn-outline-dark" value="Alimentar"/>
+                        <input type="submit" name="Banheiro" class="btn btn-outline-dark" value="Banheiro"/>
+                        <input type="submit" name="Jogar" class="btn btn-outline-dark" value="Jogar"/>
+                        <input type="submit" name="Curar" class="btn btn-outline-dark" value="Curar"/>
+                        <input type="submit" name="Luzes" class="btn btn-outline-dark" value="Luzes"/>
+                    </form>
                 </div>
             </div>
         </div>

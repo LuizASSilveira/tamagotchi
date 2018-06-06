@@ -31,7 +31,6 @@ public class Requisicao extends HttpServlet{
 
         try {
             dao = new Model.DAO(database, tableUsuario, tablePet, dbUser, dbPasswd);
-            acoes = new Acoes(dao);
         } catch (Exception ex) {
             System.out.println("Erro ao criar conexao com o BD: " + ex);
         }
@@ -67,6 +66,21 @@ public class Requisicao extends HttpServlet{
                 response.getOutputStream().print("Login invalido");
             }
         // se tiver o nomePet, entao eh um cadastro de un novo pet
+        } else if(request.getParameter("Alimentar") != null){
+            new Acoes(dao, request).alimentar();
+        // entao eh um cadastro de usuario
+        } else if(request.getParameter("Banheiro") != null){
+            new Acoes(dao, request).banheiro();
+        // entao eh um cadastro de usuario
+        } else if(request.getParameter("Jogar") != null){
+            response.sendRedirect("game1.jsp");
+        // entao eh um cadastro de usuario
+        } else if(request.getParameter("Curar") != null){
+            new Acoes(dao, request).curar();
+        // entao eh um cadastro de usuario
+        } else if(request.getParameter("Luzes") != null){
+            new Acoes(dao, request).luzes();
+        // entao eh um cadastro de usuario
         } else if(request.getParameter("nomePet") != null){
             if(new Cadastro(request, response, dao).insertPet()){
                 response.sendRedirect("colecao.jsp");
@@ -76,9 +90,6 @@ public class Requisicao extends HttpServlet{
                 response.getOutputStream().print("Nome Pet invalido");
             }
         // se for um botao
-        } else if(request.getParameter("botao") != null){
-            acoes.alimentar();
-        // entao eh um cadastro de usuario
         } else {
             if(new Cadastro(request, response, dao).insertUsuario()){
                 response.sendRedirect("login.jsp");

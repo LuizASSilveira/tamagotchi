@@ -38,6 +38,27 @@
         <div id = "OVOClick">
             <img id="ovo" src="photos/ovoClick.png"  alt="" width="390" height="495" />
         </div> 
+    <script>
+        $('body').on('click','img',function(){
+            console.log(${ qtdtoques = qtdtoques -  1  });
 
+            <%
+                try{
+                    Cookie[] cookie = request.getCookies();
+                    DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
+                    ResultSet result = dao.getCommand("SELECT qtdtoques from pet where id = " + cookie[1].getValue() +";");
+                    result.next();
+
+                    int qtd = result.getInt("qtdtoques");
+                    qtd --;
+
+                    dao.getCommand("update pet set qtdtoques = " + qtd + " where id = " + cookie[1].getValue() +";");
+                } catch (Exception ex) {
+                    System.out.println("Erro ao executar o select a pagina tamagotchi: " + ex);
+                }
+            %>
+            location.reload();                  
+        })
+    </script>    
     </body>
 </html>
