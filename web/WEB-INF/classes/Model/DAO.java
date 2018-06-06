@@ -95,7 +95,7 @@ public class DAO {
             getConnection();
             return command.executeQuery(s);
         } catch (Exception ex) {
-            System.out.println("Erro ao executar comando: " + ex);
+            System.out.println("Erro ao executar comando: " + ex + " Comando: " + s);
             return null;
         } finally{
             closeConnection();

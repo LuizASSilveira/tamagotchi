@@ -49,7 +49,22 @@ public class VPet {
 
         update();
     }
-    
+
+    private String trocaStatus(){
+        if(status.equals("MORTO")){
+            System.out.println("Morto tentando rescuscitar");
+            return "MORTO";
+        } else if(felicidade > 25 && saude > 25 && fome > 25){
+            return "NORMAL";
+        } else if(felicidade < 25){
+            return "TRISTE";
+        } else if(saude < 25){
+            return "DOENTE";
+        } else if(fome < 35){
+            return "CANSADO";
+        } return "MORTO";
+    }
+
     public void update(){
         long agora = System.currentTimeMillis();
         long deltaTime = (int) (agora - ultimoAcesso)/3000;
@@ -58,7 +73,7 @@ public class VPet {
         float felicidadeR;
         float fomeR;
 
-        switch(status){
+        switch(trocaStatus()){
             case "NORMAL":
                 saudeR = (float) 0.4;
                 felicidadeR = (float) 1.5;

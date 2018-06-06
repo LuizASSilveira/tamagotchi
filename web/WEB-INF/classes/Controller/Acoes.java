@@ -1,5 +1,6 @@
 package Controller;
 
+import java.sql.ResultSet;
 import javax.servlet.http.HttpServletRequest;
 
 /*
@@ -15,26 +16,85 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Acoes {
 
-    Model.DAO dao;
     HttpServletRequest request;
     String nomePet;
+    Model.DAO dao;
+    final int id;
+
+    int fome;
+    int saude;
+    int felicidade;
+    String status;
 
     public Acoes(Model.DAO dao, HttpServletRequest request){
-        nomePet = request.getCookies()[1].getValue();
-        this.request = request;
-        this.dao = dao;
+        this.id = Integer.parseInt(request.getCookies()[1].getValue());
+
+        try{
+            ResultSet rs = dao.getCommand("SELECT nome from pet where id = " + id + ";");
+            rs.next();
+
+            nomePet = rs.getString("nome");
+            this.request = request;
+            this.dao = dao;
+        } catch (Exception ex) {
+            System.out.println("Erro ao realizaar busca pelo nome na classe Acoes: " + nomePet);
+        }
+    }
+
+    private void obterDados(){
+        try {
+            ResultSet rs = dao.getCommand("SELECT fome, saude, felicidade, status from pet where nome = '" + nomePet + "';");
+            rs.next();
+
+            fome = rs.getInt("fome");
+            saude = rs.getInt("saude");
+            felicidade = rs.getInt("felicidade");
+            status = rs.getString("status");
+
+        } catch (Exception ex) {
+            System.out.println("Erro ao obter dados: " + ex);
+        }
     }
 
     public void alimentar(){
-        System.out.println("Pet escolhido: " + nomePet);
+        try {
+            obterDados();
+            System.out.println("Fome" + fome);
+
+            fome += 10;
+
+            dao.update(fome>100?100:fome, saude, felicidade, status, System.currentTimeMillis(), id);
+        } catch (Exception ex) {
+            System.out.println("Erro ao realizaar a alimentacao: " + ex);
+        }
     }
 
     public void banheiro(){
-        System.out.println("Clicou no banheiro com o: " + nomePet);
+        try {
+            obterDados();
+            System.out.println("Banheiro: " + saude);
+
+            saude += 5;
+            fome -= 10;
+
+            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, System.currentTimeMillis(), id);
+        } catch (Exception ex) {
+            System.out.println("Erro ao realizaar a alimentacao: " + ex);
+        }
     }
 
     public void curar(){
-        System.out.println("Curando o bicho: " + nomePet);
+        try {
+            obterDados();
+            System.out.println("Curar: " + saude);
+
+            saude += 15;
+            fome -= 5;
+
+            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, System.currentTimeMillis(), id);
+        } catch (Exception ex) {
+            System.out.println("Erro ao realizaar a alimentacao: " + ex);
+        }
     }
 
     public void luzes(){

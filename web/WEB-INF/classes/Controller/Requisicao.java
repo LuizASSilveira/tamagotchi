@@ -68,18 +68,22 @@ public class Requisicao extends HttpServlet{
         // se tiver o nomePet, entao eh um cadastro de un novo pet
         } else if(request.getParameter("Alimentar") != null){
             new Acoes(dao, request).alimentar();
+            response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Banheiro") != null){
             new Acoes(dao, request).banheiro();
+            response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Jogar") != null){
             response.sendRedirect("game1.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Curar") != null){
             new Acoes(dao, request).curar();
+            response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Luzes") != null){
             new Acoes(dao, request).luzes();
+            response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("nomePet") != null){
             if(new Cadastro(request, response, dao).insertPet()){

@@ -48,7 +48,7 @@
         try{
             String user = (String) session.getAttribute("usuario");
             DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-            result = dao.getCommand("SELECT id, nome, vida, dataCriacao from pet where dono = '" + user + "';");
+            result = dao.getCommand("SELECT id, nome, status, dataCriacao from pet where dono = '" + user + "';");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select da pagina colecao: " + ex);
         }
@@ -88,27 +88,27 @@
                     <%
                         while(result.next()){
                             String nome = result.getString(2);
-                            boolean vida = result.getBoolean(3);
+                            String status = result.getString(3);
                             long dataCriacao = result.getLong(4);
                             long agora = System.currentTimeMillis();
                             int id = result.getInt(1);
 
                             request.setAttribute("tempovida", tempoVida(dataCriacao));
                             request.setAttribute("nome", nome);
-                            request.setAttribute("vida", vida);
+                            request.setAttribute("status", status);
                             request.setAttribute("id", id);
                     %>
                             <tr>
                                 <td>${tempovida}</td>
                                 <td>${nome}</td>
-                                <td>${vida?"Vivo":"Morto"}</td>
+                                <td>${status}</td>
                                 <td style="display:none" >${id}</td>
                             </tr>
                         <% } %>
                   </tbody>
                 </table>
         </div>
-                  
+
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -134,7 +134,7 @@
             </div>                  
 
             <script>
-                $('tr').dblclick(function(){
+                $('tr').click(function(){
                     $.cookie('petId', $(this).children()[3].textContent);
                     window.location.href = "tamagotchi.jsp";
                 });

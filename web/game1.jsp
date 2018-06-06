@@ -46,13 +46,18 @@
                 try{
                     Cookie[] cookie = request.getCookies();
                     DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-                    ResultSet result = dao.getCommand("SELECT qtdtoques from pet where id = " + cookie[1].getValue() +";");
+                    ResultSet result = dao.getCommand("SELECT qtdtoques, felicidade, fome from pet where id = " + cookie[1].getValue() +";");
                     result.next();
 
                     int qtd = result.getInt("qtdtoques");
+                    int felicidade = result.getInt("felicidade");
+                    int fome = result.getInt("fome");
+                    System.out.println("Qtd: " + qtd + " felicidade: " + felicidade);
                     qtd --;
+                    felicidade += 3;
+                    fome --;
 
-                    dao.getCommand("update pet set qtdtoques = " + qtd + " where id = " + cookie[1].getValue() +";");
+                    dao.getCommand("update pet set fome = " + (fome<0?0:fome) + ", qtdtoques = " + qtd + ", felicidade = " + (felicidade>100?100:felicidade) + " where id = " + cookie[1].getValue() +";");
                 } catch (Exception ex) {
                     System.out.println("Erro ao executar o select a pagina tamagotchi: " + ex);
                 }
