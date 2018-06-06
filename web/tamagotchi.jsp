@@ -31,13 +31,14 @@
                 request.setAttribute("saude", result.getInt("saude"));
                 request.setAttribute("fome", result.getInt("fome"));
                 request.setAttribute("felicidade", result.getInt("felicidade"));
+                request.setAttribute("status", result.getString("status"));
             } catch (Exception ex) {
                 System.out.println("Erro ao executar o select a pagina tamagotchi: " + ex);
             }
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid" id="telaTama">
-
+                                
             <div id="menu">
                 <div class = "status"> Felicidade
                     <div class="progress">
@@ -55,9 +56,11 @@
                     <div class="progress">
                     <div id="fome" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${fome}%"></div>
                     </div>
-                </div>
+                </div>            
             </div>
-
+        <div> 
+            <h2 style="margin-left:45%; margin-bottom: -3%; ">${status}</h2>
+        </div>
         <div id = "Personagem">
             
             <img id="imgTama" src="photos/pet1.gif" alt="" width="90" height="100" />
