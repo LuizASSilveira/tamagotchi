@@ -31,7 +31,7 @@ CREATE TYPE STATUS AS ENUM('NORMAL', 'DOENTE', 'CANSADO', 'SUJO', 'TRISTE', 'DOR
 CREATE TABLE IF NOT EXISTS pet (
     id SERIAL NOT NULL,
     nome varchar(20) not null,
-    ultimoAcesso BIGINT not null,
+    ultimoAcesso timestamp not null,
     felicidade integer not null,
     qtdToques integer not null,
     dono varchar(20) not null,
@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS pet (
     vida boolean not null, -- CAMPO SE ELE ESTA VIVO OU MORTO
     fome integer not null,
     status STATUS default 'NORMAL',
-    dataCriacao BIGINT not null,
+    dataCriacao timestamp not null,
     tipo integer not null,  -- acho q eh o tipo da foto do pet
+    timeMorte timestamp,
     FOREIGN KEY (dono) REFERENCES usuario(usuario)
 );
 

@@ -33,7 +33,7 @@
                 request.setAttribute("felicidade", result.getInt("felicidade"));
                 request.setAttribute("status", result.getString("status"));
             } catch (Exception ex) {
-                System.out.println("Erro ao executar o select a pagina tamagotchi: " + ex);
+                System.out.println("Erro a pagina tamagotchi: " + ex);
             }
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->

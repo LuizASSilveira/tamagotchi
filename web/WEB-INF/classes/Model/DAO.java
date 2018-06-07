@@ -38,7 +38,8 @@ public class DAO {
         // este comando eh o insert, so vamos dar um insert quando for um cadastro
         // entao os outros parametros - hunger, healt ... - passa tudo como 100%.
         System.out.println("Vai inserir aquiiiiiiiiiiiiiiiiiii");
-        long timestampj = System.currentTimeMillis();
+        Timestamp timestampj = new Timestamp(System.currentTimeMillis());
+
         try{
             insertPet(dono, nome, 100, 1000000, 100, 100, "NORMAL", timestampj);
         } catch (Exception ex) {
@@ -46,7 +47,7 @@ public class DAO {
         }
     }
 
-    private void insertPet(String dono, String nome, int felicidade, int qtdToques, int saude, int fome, String status, long ultimoAcesso) throws SQLException{
+    private void insertPet(String dono, String nome, int felicidade, int qtdToques, int saude, int fome, String status, Timestamp ultimoAcesso) throws SQLException{
         getConnection();
 
         String sql = "insert into " + tablePet + " (nome, ultimoacesso, felicidade, qtdtoques, dono, lampada, saude, vida, fome, dataCriacao, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -57,7 +58,7 @@ public class DAO {
         System.out.println("Jah travou");
 
         stm.setString(1, nome);
-        stm.setLong(2, ultimoAcesso);
+        stm.setTimestamp(2, ultimoAcesso);
         stm.setInt(3, felicidade);
         stm.setInt(4, qtdToques);
         stm.setString(5, dono);
@@ -68,7 +69,7 @@ public class DAO {
         stm.setInt(9, fome);
         System.out.println(stm.toString());
         System.out.println(stm.toString());
-        stm.setLong(10, System.currentTimeMillis());
+        stm.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
         System.out.println(stm.toString());
         stm.setInt(11, 1);
 
@@ -110,11 +111,11 @@ public class DAO {
         return res.next();
     }
 
-    public void update(int fome, int saude, int felicidade, String status, long agora, int id){
+    public void update(int fome, int saude, int felicidade, String status, Timestamp agora, int id){
         try{
             getConnection();
 
-            String sql = "update pet set fome = " + fome + ", saude = " + saude + ", felicidade = " + felicidade + ", status = '" + status + "', ultimoAcesso = " + agora + " where id = " + id + ";";
+            String sql = "update pet set fome = " + fome + ", saude = " + saude + ", felicidade = " + felicidade + ", status = '" + status + "', ultimoAcesso = '" + agora + "' where id = " + id + ";";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.executeUpdate();
 

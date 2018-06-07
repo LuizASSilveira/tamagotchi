@@ -2,6 +2,7 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,8 +16,8 @@ import java.sql.SQLException;
  */
 public class VPet {
 
-    private long ultimoAcesso;
-    private long dataCriacao;
+    private Timestamp ultimoAcesso;
+    private Timestamp dataCriacao;
     private boolean lampada;
     private int felicidade;
     private int qtdToques;
@@ -35,8 +36,8 @@ public class VPet {
         this.felicidade = result.getInt(4);
         this.status = result.getString(11);
         this.qtdToques = result.getInt(5);
-        ultimoAcesso = result.getLong(3);
-        dataCriacao = result.getLong(12);
+        ultimoAcesso = result.getTimestamp(3);
+        dataCriacao = result.getTimestamp(12);
         this.vida = result.getBoolean(9);
         this.dono = result.getString(6);
         this.nome = result.getString(2);
@@ -67,7 +68,10 @@ public class VPet {
 
     public void update(){
         long agora = System.currentTimeMillis();
-        long deltaTime = (int) (agora - ultimoAcesso)/3000;
+        
+        System.out.println((agora - ultimoAcesso.getTime())/3000);
+        
+        long deltaTime = (int) (agora - ultimoAcesso.getTime())/3000;
 
         float saudeR;
         float felicidadeR;
@@ -156,6 +160,6 @@ public class VPet {
             status = "MORTO";
         }
 
-        dao.update(fome, saude, felicidade, status, agora, id);
+        dao.update(fome, saude, felicidade, status, new Timestamp(agora), id);
     }   
 }

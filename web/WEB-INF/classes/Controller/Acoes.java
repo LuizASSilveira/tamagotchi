@@ -1,6 +1,7 @@
 package Controller;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 
 /*
@@ -63,7 +64,7 @@ public class Acoes {
 
             fome += 10;
 
-            dao.update(fome>100?100:fome, saude, felicidade, status, System.currentTimeMillis(), id);
+            dao.update(fome>100?100:fome, saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id);
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
@@ -77,7 +78,7 @@ public class Acoes {
             saude += 5;
             fome -= 10;
 
-            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, System.currentTimeMillis(), id);
+            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id);
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
@@ -91,7 +92,7 @@ public class Acoes {
             saude += 15;
             fome -= 5;
 
-            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, System.currentTimeMillis(), id);
+            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id);
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }

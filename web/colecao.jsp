@@ -5,44 +5,6 @@
 <%@page import="Model.DAO"%>
 <!DOCTYPE html>
 
-    <%!
-        
-        public void recuperandoId(int id){
-            System.out.println("Entrou aqui");
-        }
-
-        public long tempoVida(long criacao){
-            long agora = System.currentTimeMillis();
-            long segundosAtual = agora / 1000;
-            long minutosAtual = segundosAtual / 60;
-            segundosAtual = segundosAtual % 60;
-            long horasAtual = minutosAtual / 60;
-            minutosAtual = minutosAtual % 60;
-
-            long segundosCriacao = criacao / 1000;
-            long minutosCriacao = segundosCriacao / 60;
-            segundosCriacao = segundosCriacao % 60;
-            long horasCriacao = minutosCriacao / 60;
-            minutosCriacao = minutosCriacao % 60;
-
-            try{
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                Date horaIni = sdf.parse(String.format ("%02d:%02d:%02d", horasCriacao, minutosCriacao, segundosCriacao));
-                Date horaFim = sdf.parse(String.format ("%02d:%02d:%02d", horasAtual, minutosAtual, segundosAtual));
-
-                double horaI = horaIni.getTime();
-                double horaF = horaFim.getTime();
-
-                System.out.println("fazendo isso: " + ((long) horaF - (long) horaI));
-                return (long) horaF - (long) horaI;
-            } catch (Exception ex) {
-                System.out.println("Erro ao calcular pontuacao: " + ex);
-                return -1L;
-            }
-        }
-    
-    %>
-
     <%
         ResultSet result = null;
         try{
@@ -89,11 +51,11 @@
                         while(result.next()){
                             String nome = result.getString(2);
                             String status = result.getString(3);
-                            long dataCriacao = result.getLong(4);
-                            long agora = System.currentTimeMillis();
+                            Timestamp dataCriacao = result.getTimestamp(4);
+                            Timestamp agora = new Timestamp(System.currentTimeMillis());
                             int id = result.getInt(1);
 
-                            request.setAttribute("tempovida", tempoVida(dataCriacao));
+                            request.setAttribute("tempovida", dataCriacao);
                             request.setAttribute("nome", nome);
                             request.setAttribute("status", status);
                             request.setAttribute("id", id);
