@@ -107,8 +107,7 @@ public class Acoes {
             obterDados();            
             
             Timestamp timeNow = new Timestamp(System.currentTimeMillis());
-            String sql = "update pet set felicidade = 100, saude = 100, fome = 100, status = 'NORMAL', ultimoacesso = '" + timeNow + "', dataCriacao= '"+ timeNow +"', timeMorte =  NULL  ,  qtdToques = 1000000 where id = 1";
-            System.out.println("+++++++"  + sql);
+            String sql = "update pet set felicidade = 100, saude = 100, fome = 100, status = 'NORMAL', ultimoacesso = '" + timeNow + "', dataCriacao= '"+ timeNow +"', timeMorte =  NULL  ,  qtdToques = 1000000 where id = "+ id +";";
             dao.getCommand(sql);
             
         } catch (Exception ex) {
