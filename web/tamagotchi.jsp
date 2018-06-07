@@ -33,7 +33,33 @@
 
             result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() + ";");
             result.next();
-
+            
+            
+            switch(result.getString("status")){
+                case "NORMAL":
+                    request.setAttribute("personagem", "photos/novoP1.gif");
+                    break;
+                
+                case "DORMINDO":
+                    request.setAttribute("personagem", "photos/novoP3.gif");
+                break;
+                
+                 case "MORTO":
+                    request.setAttribute("personagem", "photos/novoP4.gif");
+                break;
+                
+                 case "TRISTE":
+                    request.setAttribute("personagem", "photos/novoP4.gif");
+                break;
+            }
+                
+            
+            
+            
+            
+            
+            
+            
             request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "black"));
             request.setAttribute("disabled", (result.getString("status").equals("MORTO") ? "disabled" : ""));
 
@@ -44,6 +70,9 @@
             request.setAttribute("fome", result.getInt("fome"));
             request.setAttribute("felicidade", result.getInt("felicidade"));
             request.setAttribute("status", result.getString("status"));
+            
+            
+            
         } catch (Exception ex) {
             System.out.println("Erro a pagina tamagotchi: " + ex);
         }
@@ -81,7 +110,9 @@
         </div>
 
         <div id = "Personagem" style=" background-color: ${cor}">
-            <img id="imgTama"  src= "photos/pet1.gif" alt="" width="90" height="100" />
+            
+            <img id="imgTama" src="${personagem}" with="400" height="300"/>
+            
         </div>
         <div id="menuActions">
             <div id="actions">
