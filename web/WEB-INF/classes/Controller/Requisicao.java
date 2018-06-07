@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
 import java.io.IOException;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/Requisicao")
@@ -41,6 +42,16 @@ public class Requisicao extends HttpServlet{
 
     }
 
+    public String getCookie(Cookie[] cookies, String nome){
+        for(Cookie c : cookies){
+            if(c.getName().equals(nome)){
+                return c.getValue();
+            }
+        }
+
+        return "-1";
+    }
+
     /**
      *
      * @throws IOException
@@ -67,22 +78,22 @@ public class Requisicao extends HttpServlet{
             }
         // se tiver o nomePet, entao eh um cadastro de un novo pet
         } else if(request.getParameter("Alimentar") != null){
-            new Acoes(dao, request).alimentar();
+            new Acoes(dao, getCookie(request.getCookies(), "petId")).alimentar();
             response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Banheiro") != null){
-            new Acoes(dao, request).banheiro();
+            new Acoes(dao, getCookie(request.getCookies(), "petId")).banheiro();
             response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Jogar") != null){
             response.sendRedirect("game1.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Curar") != null){
-            new Acoes(dao, request).curar();
+            new Acoes(dao, getCookie(request.getCookies(), "petId")).curar();
             response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("Luzes") != null){
-            new Acoes(dao, request).luzes();
+            new Acoes(dao, getCookie(request.getCookies(), "petId")).escuro();
             response.sendRedirect("tamagotchi.jsp");
         // entao eh um cadastro de usuario
         } else if(request.getParameter("nomePet") != null){
@@ -93,8 +104,14 @@ public class Requisicao extends HttpServlet{
                 System.out.println("Nao inseriu o pet");
                 response.getOutputStream().print("Nome Pet invalido");
             }
-        // se for um botao
+        // se for para apagar o pet
+        } else if(request.getParameter("Excluir") != null){
+            System.out.println("Tentando excluir pet: " + getCookie(request.getCookies(), "morte"));
+            dao.getCommand("delete from pet where id = " + getCookie(request.getCookies(), "morte") + ";");
+            response.sendRedirect("colecao.jsp");
+        // entao eh um cadastro de usuario
         } else {
+            System.out.println("Tentando cadastro");
             if(new Cadastro(request, response, dao).insertUsuario()){
                 response.sendRedirect("login.jsp");
             } else {

@@ -12,74 +12,92 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <link   rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/game.css">
-        <title>Tamagotchi</title>
-    </head>
-    <body>
+        <link  rel="stylesheet" href="css/game.css">
 
-        <%
-            try{
-                Cookie[] cookie = request.getCookies();
-                DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-                ResultSet result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() +";");
-                result.next();
-                VPet pet = new VPet(result);
+    <audio style="display:none"  controls autoplay loop  >
+        <source  onplaying="true " src="photos/music.mp3" type="audio/mpeg">
+    </audio>
 
-                result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() +";");
-                result.next();
+    <title>Tamagotchi</title>
+</head>
+<body>
+   
 
-                request.setAttribute("saude", result.getInt("saude"));
-                request.setAttribute("fome", result.getInt("fome"));
-                request.setAttribute("felicidade", result.getInt("felicidade"));
-                request.setAttribute("status", result.getString("status"));
-            } catch (Exception ex) {
-                System.out.println("Erro a pagina tamagotchi: " + ex);
-            }
-        %>
-        <!-- tudo deve estar dentro desta classe container-fluid -->
-        <div class="container-fluid" id="telaTama">
-                                
-            <div id="menu">
-                <div class = "status"> Felicidade
-                    <div class="progress">
+
+    <%
+        try {
+            Cookie[] cookie = request.getCookies();
+            DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
+            ResultSet result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() + ";");
+            result.next();
+            VPet pet = new VPet(result);
+            System.out.println("Passou daqui");
+
+            result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() + ";");
+            result.next();
+            
+            request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "black"));
+            request.setAttribute("disabled", (result.getString("status").equals("MORTO") ? "disabled" : ""));
+            request.setAttribute("pet", (result.getBoolean("lampada") ? "" : "black"));
+            request.setAttribute("saude", result.getInt("saude"));
+            request.setAttribute("fome", result.getInt("fome"));
+            request.setAttribute("felicidade", result.getInt("felicidade"));
+            request.setAttribute("status", result.getString("status"));
+        } catch (Exception ex) {
+            System.out.println("Erro a pagina tamagotchi: " + ex);
+        }
+    %>
+    
+       
+    
+    <!-- tudo deve estar dentro desta classe container-fluid -->
+    <div class="container-fluid" id="telaTama">
+        <button style="float:right; margin-top: 4.5%; width: 10%;height: 5%;" id="voltar" type="button" onclick=location.href='http://localhost:8084/tamagotchi/colecao.jsp' class="btn btn-warning">Voltar</button>
+        <div id="menu">
+            <div class = "status"> Felicidade
+                <div class="progress">
                     <div id="felicidade" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${felicidade}%"></div>
-                    </div>
                 </div>
-
-                <div class = "status"> Saude
-                    <div class="progress">
-                    <div id="vida" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${saude}%"></div>
-                    </div>
-                </div>
-
-                <div class = "status">Fome
-                    <div class="progress">
-                    <div id="fome" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${fome}%"></div>
-                    </div>
-                </div>            
             </div>
+
+            <div class = "status"> Saude
+                <div class="progress">
+                    <div id="vida" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${saude}%"></div>
+                </div>
+            </div>
+
+            <div class = "status">Fome
+                <div class="progress">
+                    <div id="fome" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${fome}%"></div>
+                </div>
+            </div>            
+        </div>
         <div> 
             <h2 style="margin-left:45%; margin-bottom: -3%; ">${status}</h2>
         </div>
-        <div id = "Personagem">
-            
-            <img id="imgTama" src="photos/pet1.gif" alt="" width="90" height="100" />
-            
+        <div id = "Personagem" style=" background-color: ${cor}">
+
+            <img id="imgTama"  src= "photos/pet1.gif" alt="" width="90" height="100" />
+            <img src="" alt=""/>
+    
         </div>
-            <div id="menuActions">
-                <div id="actions">
-                    <form action="Requisicao" method="POST">
-                        <input type="submit" name="Alimentar" class="btn btn-outline-dark" value="Alimentar"/>
-                        <input type="submit" name="Banheiro" class="btn btn-outline-dark" value="Banheiro"/>
-                        <input type="submit" name="Jogar" class="btn btn-outline-dark" value="Jogar"/>
-                        <input type="submit" name="Curar" class="btn btn-outline-dark" value="Curar"/>
-                        <input type="submit" name="Luzes" class="btn btn-outline-dark" value="Luzes"/>
-                    </form>
-                </div>
+        <div id="menuActions">
+            <div id="actions">
+                <form action="Requisicao" method="POST">
+                    <input type="submit" name="Alimentar"   class="btn btn-outline-dark" value="Alimentar"  ${disabled} />
+                    <input type="submit" name="Banheiro"    class="btn btn-outline-dark" value="Banheiro"   ${disabled}/>
+                    <input type="submit" name="Jogar"       class="btn btn-outline-dark" value="Jogar"      ${disabled}/>
+                    <input type="submit" name="Curar"       class="btn btn-outline-dark" value="Curar"      ${disabled}/>
+                    <input type="submit" name="Luzes"       class="btn btn-outline-dark" value="Luzes"      ${disabled}/>
+                    <input type="submit" name="Reviver"     class="btn btn-outline-dark" value="Luzes"      ${disabled}/>
+                </form>
             </div>
         </div>
-        <script>
-            //setTimeout(function(){ location.reload();}, 3000);
-        </script>
-    </body>
+    </div>
+    <script>
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+    </script>
+</body>
 </html>

@@ -33,6 +33,7 @@ public class VPet {
     private int id;
 
     public VPet(ResultSet result) throws SQLException, ClassNotFoundException {
+        //System.out.println("Tempo de morte->" + result.getTimestamp(14) + "<--");
         this.timeMorte = result.getTimestamp(14);
         ultimoAcesso = result.getTimestamp(3);
         dataCriacao = result.getTimestamp(12);
@@ -48,6 +49,7 @@ public class VPet {
         this.id = result.getInt(1);
         tipo = result.getInt(13);
 
+        System.out.println("Pasasou daqui OOOOOOOO");
         dao = new Model.DAO("lp", "usuario", "pet", "postgres", "root");
 
         update();
@@ -163,7 +165,6 @@ public class VPet {
             if(timeMorte == null){
                 timeMorte = new Timestamp(System.currentTimeMillis());
             }
-
             status = "MORTO";
         }
 
