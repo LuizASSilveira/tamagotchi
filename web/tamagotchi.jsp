@@ -49,7 +49,7 @@
                 break;
                 
                  case "TRISTE":
-                    request.setAttribute("personagem", "photos/novoP4.gif");
+                    request.setAttribute("personagem", "photos/novoP5.gif");
                 break;
             }
                 
