@@ -1,8 +1,8 @@
 package Controller;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
-import javax.servlet.http.HttpServletRequest;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Acoes {
 
-    HttpServletRequest request;
     String nomePet;
     Model.DAO dao;
     final int id;
@@ -28,15 +27,14 @@ public class Acoes {
     int saude;
     int fome;
 
-    public Acoes(Model.DAO dao, HttpServletRequest request){
-        this.id = Integer.parseInt(request.getCookies()[1].getValue());
+    public Acoes(Model.DAO dao, String id){
+        this.id = Integer.parseInt(id);
 
         try{
             ResultSet rs = dao.getCommand("SELECT nome from pet where id = " + id + ";");
             rs.next();
 
             nomePet = rs.getString("nome");
-            this.request = request;
             this.dao = dao;
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar busca pelo nome na classe Acoes: " + nomePet);
@@ -71,6 +69,23 @@ public class Acoes {
             status = "DOENTE";
         } else if(fome < 35){
             status = "CANSADO";
+        }
+    }
+
+    public void escuro(){
+        String sql = "";
+            try {
+            sql = "select lampada, status from pet where id = " + id + ";";
+            ResultSet rs = dao.getCommand(sql);
+            rs.next();
+
+            boolean luz = rs.getBoolean("lampada");
+            status = rs.getString("status");
+            atualizaStatus();
+            sql = "update pet set lampada = " + (luz?"false":"true") + ", status = '" + (luz?"DORMINDO":status) + "' where id = " + id + ";";
+            dao.getCommand(sql);
+        } catch (Exception ex) {
+            System.out.println("Erro ao apgar luz: " + ex + " string: " + sql);
         }
     }
 
@@ -113,9 +128,5 @@ public class Acoes {
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
-    }
-
-    public void luzes(){
-        System.out.println("Apagando as luzes do: " + nomePet);
     }
 }

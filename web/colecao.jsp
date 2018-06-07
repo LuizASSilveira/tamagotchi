@@ -10,12 +10,13 @@
     
         long milliseconds = tempoUltimo - tempoCriacao;
         int segundos = (int) milliseconds /1000;
-
+        return Integer.toString(segundos);
+    /*
         int horas = segundos / 3600;
         int minutos = (segundos % 3600) / 60;
         segundos = (segundos % 3600) % 60;
 
-        return Integer.toString(horas) + ":" + Integer.toString(minutos) + ":" + Integer.toString(segundos);
+        return Integer.toString(horas) + ":" + Integer.toString(minutos) + ":" + Integer.toString(segundos);*/
     }
 %>
 
@@ -44,20 +45,25 @@
         <title>Coleção</title>
     </head>
     <body>
-        <!-- tudo deve estar dentro desta classe container-fluid -->
+        
         <div class="container-fluid">
 
             <h2> Coleção</h2>
             <!-- Button trigger modal -->
-            <button id="botaoModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            
+            <button style="display: block; margin-bottom: 1%; margin-top : 3%; float: left;" id="botaoModal" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
                 Novo
             </button>
-            <table class="table table-hover">
+            <button style="display: block; margin-bottom: 1%; float: right; margin-top : 3%; width: 15%;height: 5%;" id="voltar" type="button" onclick=location.href='http://localhost:8084/tamagotchi' class="btn btn-warning">SAIR</button>            
+            <button style="display: block; margin-bottom: 1%; margin-right: 1%; margin-left: 1%; float: left; margin-top : 3%; width: 15%;height: 5%;" id="voltar" type="button" onclick=location.href='http://localhost:8084/tamagotchi/rank.jsp' class="btn btn-dark">Ranking</button>            
+            
+            <table class="table table-dark table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th width="15%" scope="col">Tempo de Vida</th>
+                        <th width="15%"  scope="col">Pontuação</th>
                         <th width="30%"  scope="col">Bichinho</th>
-                         <th width="30%"  scope="col">Estado</th>
+                        <th width="30%"  scope="col">Estado</th>
+                        <th width="25%"  scope="col">Ecluir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,6 +85,13 @@
                                 <td>${tempovida}</td>
                                 <td>${nome}</td>
                                 <td>${status}</td>
+                            
+                            <form action="Requisicao" method="POST">
+                                <td>
+                                    <input type="submit" name="Excluir" id="Remove" value="x"/>
+                                </td>
+                                
+                            </form>
                                 <td style="display:none" >${id}</td>
                             </tr>
                         <% } %>
@@ -98,7 +111,7 @@
                   </div>
                 <form method="POST" action="Requisicao">
                   <div class="modal-body">
-                    De um nome pro seu amigo, Ótario..
+                    De um nome para seu novo amigo.
                   <input name="nomePet" placeholder="Nome" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
                   </div>
                   <div class="modal-footer">
@@ -111,10 +124,16 @@
             </div>                  
 
             <script>
-                $('tr').click(function(){
-                    $.cookie('petId', $(this).children()[3].textContent);
+                $('tr').dblclick(function(){
+                    $.cookie('petId', $(this).children()[5].textContent);
                     window.location.href = "tamagotchi.jsp";
                 });
+
+                $('input').click(function () {
+                    $.cookie('morte', $(this).parent().parent().children()[5].textContent);
+                    console.log($(this).parent().parent().children()[5].textContent);
+                });
+                
             </script>
     </body>
 </html>
