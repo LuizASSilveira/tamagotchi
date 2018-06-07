@@ -63,7 +63,7 @@ public class Requisicao extends HttpServlet{
                 response.sendRedirect("colecao.jsp");
             } else {
                 // tem que retornar a pagina dizendo que o login nao esta correto
-                response.getOutputStream().print("Login invalido");
+                response.sendRedirect("login.jsp");
             }
         // se tiver o nomePet, entao eh um cadastro de un novo pet
         } else if(request.getParameter("Alimentar") != null){
@@ -98,7 +98,7 @@ public class Requisicao extends HttpServlet{
             if(new Cadastro(request, response, dao).insertUsuario()){
                 response.sendRedirect("login.jsp");
             } else {
-                response.getOutputStream().print("cadastro invalido.");
+                response.sendRedirect("cadastro.jsp");
                 // tem que retornar a pagina dizendo que o cadastro nao esta correto
             }
         }
