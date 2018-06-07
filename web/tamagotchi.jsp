@@ -53,7 +53,7 @@
 
     <!-- tudo deve estar dentro desta classe container-fluid -->
     <div class="container-fluid" id="telaTama">
-        <button style="float:right; margin-top: 4.5%; width: 10%;height: 5%;" id="voltar" type="button" onclick=location.href = 'http://localhost:8084/tamagotchi/colecao.jsp' class="btn btn-warning">Voltar</button>
+        <button style="float:right; margin-top: 4.5%; width: 10%;height: 5%;" id="voltar" type="button" onclick=location.href="http://localhost:8084/tamagotchi/colecao.jsp" class="btn btn-warning">Voltar</button>
         <div id="menu">
             <div class = "status"> Felicidade
                 <div class="progress">

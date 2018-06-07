@@ -109,7 +109,12 @@ public class Requisicao extends HttpServlet{
             System.out.println("Tentando excluir pet: " + getCookie(request.getCookies(), "morte"));
             dao.getCommand("delete from pet where id = " + getCookie(request.getCookies(), "morte") + ";");
             response.sendRedirect("colecao.jsp");
+  
         // entao eh um cadastro de usuario
+        } else if(request.getParameter("Reviver") != null){
+            new Acoes(dao, getCookie(request.getCookies(), "petId")).reviver();
+          
+       
         } else {
             System.out.println("Tentando cadastro");
             if(new Cadastro(request, response, dao).insertUsuario()){
