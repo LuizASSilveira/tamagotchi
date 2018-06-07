@@ -30,8 +30,8 @@
                 
                 String nome = result.getString(1);
                 String dono = result.getString(2);
-                Timestamp dataCriacao = result.getTimestamp(4);
-                Timestamp timeMorte = result.getTimestamp(5);
+                Timestamp dataCriacao = result.getTimestamp(3);
+                Timestamp timeMorte = result.getTimestamp(4);
                 Timestamp agora = new Timestamp(System.currentTimeMillis());
                 Integer pontos = horasVividas(dataCriacao.getTime(), (timeMorte==null?agora.getTime():timeMorte.getTime()));
 
@@ -42,7 +42,7 @@
             pontosGeral.sort(new Comparator<Integer>(){
             @Override
             public int compare(Integer t, Integer t1) {
-                return (t < t1) ? -1 : 1;
+                return (t < t1) ? 1 : -1;
             }
         });
         } catch (Exception ex) {
