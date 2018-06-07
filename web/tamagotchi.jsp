@@ -11,7 +11,7 @@
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link   rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/game.css">
         <title>Tamagotchi</title>
     </head>
@@ -31,13 +31,14 @@
                 request.setAttribute("saude", result.getInt("saude"));
                 request.setAttribute("fome", result.getInt("fome"));
                 request.setAttribute("felicidade", result.getInt("felicidade"));
+                request.setAttribute("status", result.getString("status"));
             } catch (Exception ex) {
-                System.out.println("Erro ao executar o select a pagina tamagotchi: " + ex);
+                System.out.println("Erro a pagina tamagotchi: " + ex);
             }
         %>
         <!-- tudo deve estar dentro desta classe container-fluid -->
         <div class="container-fluid" id="telaTama">
-
+                                
             <div id="menu">
                 <div class = "status"> Felicidade
                     <div class="progress">
@@ -55,25 +56,30 @@
                     <div class="progress">
                     <div id="fome" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${fome}%"></div>
                     </div>
-                </div>
+                </div>            
             </div>
-
+        <div> 
+            <h2 style="margin-left:45%; margin-bottom: -3%; ">${status}</h2>
+        </div>
         <div id = "Personagem">
+            
+            <img id="imgTama" src="photos/pet1.gif" alt="" width="90" height="100" />
+            
         </div>
             <div id="menuActions">
                 <div id="actions">
-
-                    <button type="button" class="btn btn-outline-dark">Alimentar</button>
-                    <button type="button" class="btn btn-outline-dark">Banheiro</button>
-                    <button type="button" class="btn btn-outline-dark">Jogar</button>
-                    <button type="button" class="btn btn-outline-dark">Curar</button>
-                    <button type="button" class="btn btn-outline-dark">Luzes</button>
-
+                    <form action="Requisicao" method="POST">
+                        <input type="submit" name="Alimentar" class="btn btn-outline-dark" value="Alimentar"/>
+                        <input type="submit" name="Banheiro" class="btn btn-outline-dark" value="Banheiro"/>
+                        <input type="submit" name="Jogar" class="btn btn-outline-dark" value="Jogar"/>
+                        <input type="submit" name="Curar" class="btn btn-outline-dark" value="Curar"/>
+                        <input type="submit" name="Luzes" class="btn btn-outline-dark" value="Luzes"/>
+                    </form>
                 </div>
             </div>
         </div>
         <script>
-            setTimeout(function(){ location.reload();}, 3000);
+            //setTimeout(function(){ location.reload();}, 3000);
         </script>
     </body>
 </html>

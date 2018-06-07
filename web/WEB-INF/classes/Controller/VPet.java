@@ -1,10 +1,8 @@
 package Controller;
 
-import Model.DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Random;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,8 +16,8 @@ import java.util.Random;
  */
 public class VPet {
 
-    private long ultimoAcesso;
-    private long dataCriacao;
+    private Timestamp ultimoAcesso;
+    private Timestamp dataCriacao;
     private boolean lampada;
     private int felicidade;
     private int qtdToques;
@@ -38,8 +36,8 @@ public class VPet {
         this.felicidade = result.getInt(4);
         this.status = result.getString(11);
         this.qtdToques = result.getInt(5);
-        ultimoAcesso = result.getLong(3);
-        dataCriacao = result.getLong(12);
+        ultimoAcesso = result.getTimestamp(3);
+        dataCriacao = result.getTimestamp(12);
         this.vida = result.getBoolean(9);
         this.dono = result.getString(6);
         this.nome = result.getString(2);
@@ -52,16 +50,34 @@ public class VPet {
 
         update();
     }
-    
+
+    private String trocaStatus(){
+        if(status.equals("MORTO")){
+            System.out.println("Morto tentando rescuscitar");
+            return "MORTO";
+        } else if(felicidade > 25 && saude > 25 && fome > 25){
+            return "NORMAL";
+        } else if(felicidade < 25){
+            return "TRISTE";
+        } else if(saude < 25){
+            return "DOENTE";
+        } else if(fome < 35){
+            return "CANSADO";
+        } return "MORTO";
+    }
+
     public void update(){
         long agora = System.currentTimeMillis();
-        long deltaTime = (int) (agora - ultimoAcesso)/3000;
+        
+        System.out.println((agora - ultimoAcesso.getTime())/3000);
+        
+        long deltaTime = (int) (agora - ultimoAcesso.getTime())/3000;
 
         float saudeR;
         float felicidadeR;
         float fomeR;
 
-        switch(status){
+        switch(trocaStatus()){
             case "NORMAL":
                 saudeR = (float) 0.4;
                 felicidadeR = (float) 1.5;
@@ -144,8 +160,6 @@ public class VPet {
             status = "MORTO";
         }
 
-        dao.update(fome, saude, felicidade, status, agora, id);
-    }
-
-   
+        dao.update(fome, saude, felicidade, status, new Timestamp(agora), id);
+    }   
 }

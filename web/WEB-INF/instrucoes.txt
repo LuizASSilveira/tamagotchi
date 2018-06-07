@@ -11,7 +11,7 @@ javac -cp lib/servlet-api.jar classes/Model/DAO.java
 
 javac -cp lib/servlet-api.jar classes/Model/DAO.java classes/Controller/Cadastro.java
 javac -cp lib/servlet-api.jar classes/Model/DAO.java classes/Controller/Login.java
-javac -cp lib/servlet-api.jar classes/Controller/Cadastro.java classes/Model/DAO.java classes/Controller/Login.java classes/Controller/Requisicao.java classes/Controller/VPet.java
+javac -cp lib/servlet-api.jar classes/Controller/Cadastro.java classes/Model/DAO.java classes/Controller/Login.java classes/Controller/Acoes.java classes/Controller/Requisicao.java classes/Controller/VPet.java
 
 ----------------------------------------------------------------------------------------------------------------------
 

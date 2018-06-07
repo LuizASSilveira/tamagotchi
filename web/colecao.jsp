@@ -5,50 +5,12 @@
 <%@page import="Model.DAO"%>
 <!DOCTYPE html>
 
-    <%!
-        
-        public void recuperandoId(int id){
-            System.out.println("Entrou aqui");
-        }
-
-        public long tempoVida(long criacao){
-            long agora = System.currentTimeMillis();
-            long segundosAtual = agora / 1000;
-            long minutosAtual = segundosAtual / 60;
-            segundosAtual = segundosAtual % 60;
-            long horasAtual = minutosAtual / 60;
-            minutosAtual = minutosAtual % 60;
-
-            long segundosCriacao = criacao / 1000;
-            long minutosCriacao = segundosCriacao / 60;
-            segundosCriacao = segundosCriacao % 60;
-            long horasCriacao = minutosCriacao / 60;
-            minutosCriacao = minutosCriacao % 60;
-
-            try{
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                Date horaIni = sdf.parse(String.format ("%02d:%02d:%02d", horasCriacao, minutosCriacao, segundosCriacao));
-                Date horaFim = sdf.parse(String.format ("%02d:%02d:%02d", horasAtual, minutosAtual, segundosAtual));
-
-                double horaI = horaIni.getTime();
-                double horaF = horaFim.getTime();
-
-                System.out.println("fazendo isso: " + ((long) horaF - (long) horaI));
-                return (long) horaF - (long) horaI;
-            } catch (Exception ex) {
-                System.out.println("Erro ao calcular pontuacao: " + ex);
-                return -1L;
-            }
-        }
-    
-    %>
-
     <%
         ResultSet result = null;
         try{
             String user = (String) session.getAttribute("usuario");
             DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-            result = dao.getCommand("SELECT id, nome, vida, dataCriacao from pet where dono = '" + user + "';");
+            result = dao.getCommand("SELECT id, nome, status, dataCriacao from pet where dono = '" + user + "';");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select da pagina colecao: " + ex);
         }
@@ -88,27 +50,27 @@
                     <%
                         while(result.next()){
                             String nome = result.getString(2);
-                            boolean vida = result.getBoolean(3);
-                            long dataCriacao = result.getLong(4);
-                            long agora = System.currentTimeMillis();
+                            String status = result.getString(3);
+                            Timestamp dataCriacao = result.getTimestamp(4);
+                            Timestamp agora = new Timestamp(System.currentTimeMillis());
                             int id = result.getInt(1);
 
-                            request.setAttribute("tempovida", tempoVida(dataCriacao));
+                            request.setAttribute("tempovida", dataCriacao);
                             request.setAttribute("nome", nome);
-                            request.setAttribute("vida", vida);
+                            request.setAttribute("status", status);
                             request.setAttribute("id", id);
                     %>
                             <tr>
                                 <td>${tempovida}</td>
                                 <td>${nome}</td>
-                                <td>${vida?"Vivo":"Morto"}</td>
+                                <td>${status}</td>
                                 <td style="display:none" >${id}</td>
                             </tr>
                         <% } %>
                   </tbody>
                 </table>
         </div>
-                  
+
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -134,7 +96,7 @@
             </div>                  
 
             <script>
-                $('tr').dblclick(function(){
+                $('tr').click(function(){
                     $.cookie('petId', $(this).children()[3].textContent);
                     window.location.href = "tamagotchi.jsp";
                 });

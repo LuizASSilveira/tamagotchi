@@ -1,0 +1,20 @@
+body{
+    background-image: url(../photos/fundo.png);
+}
+
+#OVOClick{
+    cursor: pointer;
+    height: 100%;
+    margin-left: 35%; 
+}
+h1{
+    margin-left: 3%;
+    margin-top: 2%;
+    color: crimson;
+}
+#voltar{
+   float: right;
+   margin-right: 3%;
+   width: 10%;
+   height: 5%;
+}

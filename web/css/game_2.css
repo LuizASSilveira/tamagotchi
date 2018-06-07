@@ -52,18 +52,18 @@
 }
 
 #actions{
-    color: white;
-    display: inline-table;
-    text-align: center;
-    width:  100%;
-    height: 100%;
+	color: white;
+	display: inline-table;
+	text-align: center;
+	width:  100%;
+	height: 100%;
 
 }
 
-input{
-    background-color: black;
-    margin-right: -0.5%;
-    width: 15%;
-    height: 100%;
+button.btn{
+	background-color: black;
+	margin-right: -0.5%;
+	width: 15%;
+	height: 100%;
 	
 }
