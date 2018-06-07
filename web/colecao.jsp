@@ -5,12 +5,26 @@
 <%@page import="Model.DAO"%>
 <!DOCTYPE html>
 
+<%!
+    public String horasVividas(long tempoCriacao, long tempoUltimo){
+    
+        long milliseconds = tempoUltimo - tempoCriacao;
+        int segundos = (int) milliseconds /1000;
+
+        int horas = segundos / 3600;
+        int minutos = (segundos % 3600) / 60;
+        segundos = (segundos % 3600) % 60;
+
+        return Integer.toString(horas) + ":" + Integer.toString(minutos) + ":" + Integer.toString(segundos);
+    }
+%>
+
     <%
         ResultSet result = null;
         try{
             String user = (String) session.getAttribute("usuario");
             DAO dao = new DAO("lp", "usuario", "pet", "postgres", "root");
-            result = dao.getCommand("SELECT id, nome, status, dataCriacao from pet where dono = '" + user + "';");
+            result = dao.getCommand("SELECT id, nome, status, dataCriacao, timeMorte from pet where dono = '" + user + "';");
         } catch (Exception ex) {
             System.out.println("Erro ao executar o select da pagina colecao: " + ex);
         }
@@ -49,13 +63,14 @@
                 <tbody>
                     <%
                         while(result.next()){
+                            int id = result.getInt(1);
                             String nome = result.getString(2);
                             String status = result.getString(3);
                             Timestamp dataCriacao = result.getTimestamp(4);
+                            Timestamp timeMorte = result.getTimestamp(5);
                             Timestamp agora = new Timestamp(System.currentTimeMillis());
-                            int id = result.getInt(1);
 
-                            request.setAttribute("tempovida", dataCriacao);
+                            request.setAttribute("tempovida", horasVividas(dataCriacao.getTime(), (timeMorte==null?agora.getTime():timeMorte.getTime())));
                             request.setAttribute("nome", nome);
                             request.setAttribute("status", status);
                             request.setAttribute("id", id);

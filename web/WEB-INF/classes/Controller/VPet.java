@@ -18,6 +18,7 @@ public class VPet {
 
     private Timestamp ultimoAcesso;
     private Timestamp dataCriacao;
+    private Timestamp timeMorte;
     private boolean lampada;
     private int felicidade;
     private int qtdToques;
@@ -32,12 +33,13 @@ public class VPet {
     private int id;
 
     public VPet(ResultSet result) throws SQLException, ClassNotFoundException {
+        this.timeMorte = result.getTimestamp(14);
+        ultimoAcesso = result.getTimestamp(3);
+        dataCriacao = result.getTimestamp(12);
         this.lampada = result.getBoolean(7);
         this.felicidade = result.getInt(4);
         this.status = result.getString(11);
         this.qtdToques = result.getInt(5);
-        ultimoAcesso = result.getTimestamp(3);
-        dataCriacao = result.getTimestamp(12);
         this.vida = result.getBoolean(9);
         this.dono = result.getString(6);
         this.nome = result.getString(2);
@@ -157,9 +159,15 @@ public class VPet {
         }
 
         if(felicidade <= 0 || saude <= 0 || fome <= 0){
+            // se ele jah nao estiver morto
+            if(timeMorte == null){
+                timeMorte = new Timestamp(System.currentTimeMillis());
+            }
+
             status = "MORTO";
         }
 
-        dao.update(fome, saude, felicidade, status, new Timestamp(agora), id);
+        // o timeMorte eh retornado null se nao tiver nada, mas para inserirmos tem que ser uma string vazia
+        dao.update(fome, saude, felicidade, status, new Timestamp(agora), id, timeMorte);
     }   
 }

@@ -111,11 +111,17 @@ public class DAO {
         return res.next();
     }
 
-    public void update(int fome, int saude, int felicidade, String status, Timestamp agora, int id){
+    public void update(int fome, int saude, int felicidade, String status, Timestamp agora, int id, Timestamp timeMorte){
         try{
             getConnection();
 
-            String sql = "update pet set fome = " + fome + ", saude = " + saude + ", felicidade = " + felicidade + ", status = '" + status + "', ultimoAcesso = '" + agora + "' where id = " + id + ";";
+            // o select retorna um timeMorte null se nao tiver nada lah, mas nao podemos inserir um null
+            String timeDead = "";
+            if(timeMorte != null){
+                timeDead = " timeMorte = '" + timeMorte.toString() + "',";
+            }
+
+            String sql = "update pet set " + timeDead + " fome = " + fome + ", saude = " + saude + ", felicidade = " + felicidade + ", status = '" + status + "', ultimoAcesso = '" + agora + "' where id = " + id + ";";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.executeUpdate();
 

@@ -22,10 +22,11 @@ public class Acoes {
     Model.DAO dao;
     final int id;
 
-    int fome;
-    int saude;
-    int felicidade;
+    Timestamp timeMorte;
     String status;
+    int felicidade;
+    int saude;
+    int fome;
 
     public Acoes(Model.DAO dao, HttpServletRequest request){
         this.id = Integer.parseInt(request.getCookies()[1].getValue());
@@ -44,16 +45,32 @@ public class Acoes {
 
     private void obterDados(){
         try {
-            ResultSet rs = dao.getCommand("SELECT fome, saude, felicidade, status from pet where nome = '" + nomePet + "';");
+            ResultSet rs = dao.getCommand("SELECT fome, saude, felicidade, status, timeMorte from pet where nome = '" + nomePet + "';");
             rs.next();
 
-            fome = rs.getInt("fome");
-            saude = rs.getInt("saude");
+            timeMorte = rs.getTimestamp("timeMorte");
             felicidade = rs.getInt("felicidade");
             status = rs.getString("status");
+            saude = rs.getInt("saude");
+            fome = rs.getInt("fome");
+            atualizaStatus();
 
         } catch (Exception ex) {
             System.out.println("Erro ao obter dados: " + ex);
+        }
+    }
+
+    public void atualizaStatus(){
+        if(status.equals("MORTO")){
+            return;
+        } else if(felicidade > 25 && saude > 25 && fome > 25){
+            status = "NORMAL";
+        } else if(felicidade < 25){
+            status = "TRISTE";
+        } else if(saude < 25){
+            status = "DOENTE";
+        } else if(fome < 35){
+            status = "CANSADO";
         }
     }
 
@@ -64,7 +81,7 @@ public class Acoes {
 
             fome += 10;
 
-            dao.update(fome>100?100:fome, saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id);
+            dao.update(fome>100?100:fome, saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id, timeMorte);
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
@@ -78,7 +95,7 @@ public class Acoes {
             saude += 5;
             fome -= 10;
 
-            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id);
+            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id, timeMorte);
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
@@ -92,7 +109,7 @@ public class Acoes {
             saude += 15;
             fome -= 5;
 
-            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id);
+            dao.update(fome<0?0:fome, saude>100?100:saude, felicidade, status, new Timestamp(System.currentTimeMillis()), id, timeMorte);
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
