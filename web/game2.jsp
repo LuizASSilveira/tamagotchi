@@ -2,8 +2,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content='text/html; charset=UTF-8'/>
-    
-    
+     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <title>Acerte o Numero</title>
 </head>
 <body>
@@ -53,7 +52,7 @@
             error = "Digite um valor";
     }
 
-    if (chute != Numero.intValue()) {
+    if (chute != Numero) {
 %>
         <div >
             <p>Chute um numero entre 0 e 100</p>
@@ -89,8 +88,8 @@
     if (Tentativas.size() > 0) {
 %>
         <div>
-            <table>
-                <thead>
+            <table class="table table-dark">
+                <thead class="table-dark">
                     <tr>
                         <th>Numero.</th>
                         <th>chute</th> 
