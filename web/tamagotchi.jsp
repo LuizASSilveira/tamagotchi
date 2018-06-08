@@ -21,8 +21,6 @@
     <title>Tamagotchi</title>
 </head>
 <body>
-   
-
 
     <%
         try {
@@ -35,9 +33,12 @@
 
             result = dao.getCommand("SELECT * from pet where id = " + cookie[1].getValue() + ";");
             result.next();
-            
+
             request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "black"));
             request.setAttribute("disabled", (result.getString("status").equals("MORTO") ? "disabled" : ""));
+
+            request.setAttribute("liveForever", (result.getString("status").equals("MORTO") ? "" : "none"));
+
             request.setAttribute("pet", (result.getBoolean("lampada") ? "" : "black"));
             request.setAttribute("saude", result.getInt("saude"));
             request.setAttribute("fome", result.getInt("fome"));
@@ -47,12 +48,12 @@
             System.out.println("Erro a pagina tamagotchi: " + ex);
         }
     %>
-    
-       
-    
+
+
+
     <!-- tudo deve estar dentro desta classe container-fluid -->
     <div class="container-fluid" id="telaTama">
-        <button style="float:right; margin-top: 4.5%; width: 10%;height: 5%;" id="voltar" type="button" onclick=location.href='http://localhost:8084/tamagotchi/colecao.jsp' class="btn btn-warning">Voltar</button>
+        <button style="float:right; margin-top: 4.5%; width: 10%;height: 5%;" id="voltar" type="button" onclick=location.href = 'http://localhost:8084/tamagotchi/colecao.jsp' class="btn btn-warning">Voltar</button>
         <div id="menu">
             <div class = "status"> Felicidade
                 <div class="progress">
@@ -73,13 +74,14 @@
             </div>            
         </div>
         <div> 
-            <h2 style="margin-left:45%; margin-bottom: -3%; ">${status}</h2>
+            <h2 style="margin-left:45%; margin-bottom: -3%; ">${status}</h2><br><br>
+            <form action="Requisicao" method="POST">
+                <input style="margin-left: 42%; display: ${liveForever};" type="submit" name="Reviver" class="btn btn-info" value="REVIVER"/>
+            </form>
         </div>
-        <div id = "Personagem" style=" background-color: ${cor}">
 
+        <div id = "Personagem" style=" background-color: ${cor}">
             <img id="imgTama"  src= "photos/pet1.gif" alt="" width="90" height="100" />
-            <img src="" alt=""/>
-    
         </div>
         <div id="menuActions">
             <div id="actions">
@@ -89,7 +91,6 @@
                     <input type="submit" name="Jogar"       class="btn btn-outline-dark" value="Jogar"      ${disabled}/>
                     <input type="submit" name="Curar"       class="btn btn-outline-dark" value="Curar"      ${disabled}/>
                     <input type="submit" name="Luzes"       class="btn btn-outline-dark" value="Luzes"      ${disabled}/>
-                    <input type="submit" name="Reviver"     class="btn btn-outline-dark" value="Luzes"      ${disabled}/>
                 </form>
             </div>
         </div>
