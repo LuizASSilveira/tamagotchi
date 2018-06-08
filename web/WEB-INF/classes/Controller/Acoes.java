@@ -61,6 +61,10 @@ public class Acoes {
     }
 
     public void atualizaStatus(){
+        if(!lampada){
+            return;
+        }
+
         if(status.equals("MORTO")){
             return;
         } else if(felicidade > 25 && saude > 25 && fome > 25){
@@ -92,12 +96,13 @@ public class Acoes {
     }
 
     public void alimentar(){
-        if(!lampada){
-            return;
-        }
-
         try {
             obterDados();
+
+            if(!lampada){
+                return;
+            }
+
             System.out.println("Fome" + fome);
 
             fome += 10;
@@ -110,8 +115,8 @@ public class Acoes {
     
     public void reviver(){
         try {
-            obterDados();            
-            
+            obterDados();
+
             Timestamp timeNow = new Timestamp(System.currentTimeMillis());
             String sql = "update pet set lampada = true, felicidade = 100, saude = 100, fome = 100, status = 'NORMAL', ultimoacesso = '" + timeNow + "', dataCriacao= '"+ timeNow +"', timeMorte =  NULL  ,  qtdToques = 1000000 where id = "+ id +";";
             dao.getCommand(sql);
@@ -122,12 +127,14 @@ public class Acoes {
     }
 
     public void banheiro(){
-        if(!lampada){
-            return;
-        }
 
         try {
             obterDados();
+
+            if(!lampada){
+                return;
+            }
+
             System.out.println("Banheiro: " + saude);
 
             saude += 5;
@@ -140,12 +147,14 @@ public class Acoes {
     }
 
     public void curar(){
-        if(!lampada){
-            return;
-        }
 
         try {
             obterDados();
+
+            if(!lampada){
+                return;
+            }
+
             System.out.println("Curar: " + saude);
 
             saude += 15;
