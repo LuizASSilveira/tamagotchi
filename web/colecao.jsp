@@ -45,7 +45,6 @@
         <title>Coleção</title>
     </head>
     <body>
-
         <div class="container-fluid">
 
             <h2> Coleção</h2>
@@ -85,12 +84,10 @@
                         <td>${tempovida}</td>
                         <td>${nome}</td>
                         <td>${status}</td>
-
                 <form action="Requisicao" method="POST">
                     <td>
                         <input type="submit" name="Excluir" id="Remove" value="x"/>
                     </td>
-
                 </form>
                 <td style="display:none" >${id}</td>
                 </tr>
@@ -98,7 +95,6 @@
                 </tbody>
             </table>
         </div>
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -133,7 +129,6 @@
                 $.cookie('morte', $(this).parent().parent().children()[5].textContent);
                 console.log($(this).parent().parent().children()[5].textContent);
             });
-
         </script>
     </body>
 </html>
