@@ -100,12 +100,12 @@
 <%
         for (int Index = Tentativas.size() - 1; Index >= 0; Index--) {
             Integer     Prevchute = (Integer) Tentativas.get(Index);
-            int         Relationship = Prevchute.compareTo(Numero);
+            int         tentativa = Prevchute.compareTo(Numero);
             String      Result = "Correto!";
 
-            if (Relationship < 0)
+            if (tentativa < 0)
                 Result = "Muito Baixo";
-            else if (Relationship > 0)
+            else if (tentativa > 0)
                 Result = "Muito Alto";
 %>
                     <tr>
