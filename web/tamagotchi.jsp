@@ -60,7 +60,7 @@
             request.setAttribute("disabled", (result.getString("status").equals("MORTO") ? "disabled" : ""));
             request.setAttribute("liveForever", (result.getString("status").equals("MORTO") ? "" : "none"));
             request.setAttribute("pet", (result.getBoolean("lampada") ? "" : "black"));
-            request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "#0f0f0a"));
+            request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "rgba(15, 15, 10, 0.9)"));
             request.setAttribute("felicidade", result.getInt("felicidade"));
             request.setAttribute("status", result.getString("status"));
             request.setAttribute("saude", result.getInt("saude"));
@@ -102,7 +102,7 @@
             </form>
         </div>
 
-        <div id = "Personagem" style=" background-color: ${cor}">
+        <div id = "Personagem" style=" background-color: ${cor};">
             
             <img id="imgTama" src="${personagem}" with="400" height="300"/>
             
