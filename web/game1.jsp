@@ -35,9 +35,9 @@
         <button id="voltar" type="button" onclick=location.href='http://localhost:8084/tamagotchi/tamagotchi.jsp' class="btn btn-warning">Voltar</button>
         
         <h1>Placar: ${ qtdtoques } </h1>
-        <div id = "OVOClick">
-            <img id="ovo" src="photos/ovoClick.png"  alt="" width="390" height="495" />
-        </div> 
+        <div id = "OVOClick" class="zoom">
+            <img id="ovo" src="photos/ovoClick.png" class="img-responsive"  alt="" width="390" height="495" />
+        </div>
     <script>
         $('body').on('click','img',function(){
             console.log(${ qtdtoques = qtdtoques -  1  });

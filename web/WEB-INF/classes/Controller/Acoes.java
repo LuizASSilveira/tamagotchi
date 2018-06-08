@@ -64,6 +64,7 @@ public class Acoes {
         } else if(felicidade > 25 && saude > 25 && fome > 25){
             status = "NORMAL";
         } else if(felicidade < 25){
+            System.out.println("Trcou aqui para triste");
             status = "TRISTE";
         } else if(saude < 25){
             status = "DOENTE";
@@ -82,7 +83,7 @@ public class Acoes {
             boolean luz = rs.getBoolean("lampada");
             status = rs.getString("status");
             atualizaStatus();
-            sql = "update pet set lampada = " + (luz?"false":"true") + ", status = '" + (luz?"DORMINDO":status) + "' where id = " + id + ";";
+            sql = "update pet set lampada = " + (luz?"false":"true") + ", status = '" + (luz?"DORMINDO":"NORMAL") + "' where id = " + id + ";";
             dao.getCommand(sql);
         } catch (Exception ex) {
             System.out.println("Erro ao apgar luz: " + ex + " string: " + sql);

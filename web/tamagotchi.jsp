@@ -39,40 +39,33 @@
                 case "NORMAL":
                     request.setAttribute("personagem", "photos/novoP1.gif");
                     break;
-                
+
                 case "DORMINDO":
                     request.setAttribute("personagem", "photos/novoP3.gif");
                 break;
-                
+
                  case "MORTO":
                     request.setAttribute("personagem", "photos/novoP4.gif");
                 break;
-                
+
                  case "TRISTE":
                     request.setAttribute("personagem", "photos/novoP5.gif");
                 break;
+
+                 case "CANSADO":
+                    request.setAttribute("personagem", "photos/novoP6.gif");
+                break;
             }
-                
-            
-            
-            
-            
-            
-            
-            
-            request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "black"));
+
             request.setAttribute("disabled", (result.getString("status").equals("MORTO") ? "disabled" : ""));
-
             request.setAttribute("liveForever", (result.getString("status").equals("MORTO") ? "" : "none"));
-
             request.setAttribute("pet", (result.getBoolean("lampada") ? "" : "black"));
-            request.setAttribute("saude", result.getInt("saude"));
-            request.setAttribute("fome", result.getInt("fome"));
+            request.setAttribute("cor", (result.getBoolean("lampada") ? "" : "#0f0f0a"));
             request.setAttribute("felicidade", result.getInt("felicidade"));
             request.setAttribute("status", result.getString("status"));
-            
-            
-            
+            request.setAttribute("saude", result.getInt("saude"));
+            request.setAttribute("fome", result.getInt("fome"));
+
         } catch (Exception ex) {
             System.out.println("Erro a pagina tamagotchi: " + ex);
         }
