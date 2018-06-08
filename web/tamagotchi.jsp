@@ -96,7 +96,7 @@
             </div>            
         </div>
         <div> 
-            <h2 style="margin-left:45%; margin-bottom: -3%; color: white; ">${status}</h2><br><br>
+            <h2 style="margin-left:45%; margin-bottom: -3%; color: gold ; font-weight: bold;">${status}</h2><br><br>
             <form action="Requisicao" method="POST">
                 <input style="margin-left: 42%; display: ${liveForever};" type="submit" name="Reviver" class="btn btn-info" value="REVIVER"/>
             </form>

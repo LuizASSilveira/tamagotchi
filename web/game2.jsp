@@ -12,10 +12,10 @@
     <div>
 <%
 
-    HttpSession       Sess = request.getSession();
-    boolean           start = Sess.isNew();
-    Integer           Numero;
-    ArrayList         Tentativas;
+    HttpSession Sess = request.getSession();
+    boolean     start = Sess.isNew();
+    Integer     Numero;
+    ArrayList   Tentativas;
 
     if (start) {
         Numero = new Integer(new java.util.Random().nextInt(101));
@@ -93,7 +93,7 @@
                     <tr>
                         <th>Numero.</th>
                         <th>chute</th> 
-                        <th>Result</th>
+                        <th>resultado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,17 +101,17 @@
         for (int Index = Tentativas.size() - 1; Index >= 0; Index--) {
             Integer     Prevchute = (Integer) Tentativas.get(Index);
             int         tentativa = Prevchute.compareTo(Numero);
-            String      Result = "Correto!";
+            String      resultado = "Correto!";
 
             if (tentativa < 0)
-                Result = "Muito Baixo";
+                resultado = "Muito Baixo";
             else if (tentativa > 0)
-                Result = "Muito Alto";
+                resultado = "Muito Alto";
 %>
                     <tr>
                         <td><%= Index + 1 %></td> 
                         <td><%= Prevchute %></td> 
-                        <td><%= Result %></td>
+                        <td><%= resultado %></td>
                     </tr>
 <%
         }
