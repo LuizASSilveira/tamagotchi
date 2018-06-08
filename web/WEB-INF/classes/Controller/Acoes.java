@@ -22,8 +22,9 @@ public class Acoes {
     final int id;
 
     Timestamp timeMorte;
-    String status;
+    boolean lampada;
     int felicidade;
+    String status;
     int saude;
     int fome;
 
@@ -43,11 +44,12 @@ public class Acoes {
 
     private void obterDados(){
         try {
-            ResultSet rs = dao.getCommand("SELECT fome, saude, felicidade, status, timeMorte from pet where nome = '" + nomePet + "';");
+            ResultSet rs = dao.getCommand("SELECT fome, saude, felicidade, status, timeMorte, lampada from pet where nome = '" + nomePet + "';");
             rs.next();
 
             timeMorte = rs.getTimestamp("timeMorte");
             felicidade = rs.getInt("felicidade");
+            lampada = rs.getBoolean("lampada");
             status = rs.getString("status");
             saude = rs.getInt("saude");
             fome = rs.getInt("fome");
@@ -64,7 +66,6 @@ public class Acoes {
         } else if(felicidade > 25 && saude > 25 && fome > 25){
             status = "NORMAL";
         } else if(felicidade < 25){
-            System.out.println("Trcou aqui para triste");
             status = "TRISTE";
         } else if(saude < 25){
             status = "DOENTE";
@@ -91,6 +92,10 @@ public class Acoes {
     }
 
     public void alimentar(){
+        if(!lampada){
+            return;
+        }
+
         try {
             obterDados();
             System.out.println("Fome" + fome);
@@ -108,15 +113,19 @@ public class Acoes {
             obterDados();            
             
             Timestamp timeNow = new Timestamp(System.currentTimeMillis());
-            String sql = "update pet set felicidade = 100, saude = 100, fome = 100, status = 'NORMAL', ultimoacesso = '" + timeNow + "', dataCriacao= '"+ timeNow +"', timeMorte =  NULL  ,  qtdToques = 1000000 where id = "+ id +";";
+            String sql = "update pet set lampada = true, felicidade = 100, saude = 100, fome = 100, status = 'NORMAL', ultimoacesso = '" + timeNow + "', dataCriacao= '"+ timeNow +"', timeMorte =  NULL  ,  qtdToques = 1000000 where id = "+ id +";";
             dao.getCommand(sql);
-            
+
         } catch (Exception ex) {
             System.out.println("Erro ao realizaar a alimentacao: " + ex);
         }
     }
 
     public void banheiro(){
+        if(!lampada){
+            return;
+        }
+
         try {
             obterDados();
             System.out.println("Banheiro: " + saude);
@@ -131,6 +140,10 @@ public class Acoes {
     }
 
     public void curar(){
+        if(!lampada){
+            return;
+        }
+
         try {
             obterDados();
             System.out.println("Curar: " + saude);

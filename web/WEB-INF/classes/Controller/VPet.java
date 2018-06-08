@@ -49,7 +49,6 @@ public class VPet {
         this.id = result.getInt(1);
         tipo = result.getInt(13);
 
-        System.out.println("Pasasou daqui OOOOOOOO");
         dao = new Model.DAO("lp", "usuario", "pet", "postgres", "root");
 
         update();
@@ -149,15 +148,17 @@ public class VPet {
             break;
         }
 
-        if(felicidade < 25){
-            status = "TRISTE";
-            System.out.println("Trocou para triste");
-        } else if(saude < 25){
-            status = "DOENTE";
-            System.out.println("Trocou para doente");
-        } else if(fome < 35){
-            status = "CANSADO";
-            System.out.println("Trocou para cansado");
+        if(lampada){
+            if(felicidade < 25){
+                status = "TRISTE";
+                System.out.println("Trocou para triste");
+            } else if(saude < 25){
+                status = "DOENTE";
+                System.out.println("Trocou para doente");
+            } else if(fome < 35){
+                status = "CANSADO";
+                System.out.println("Trocou para cansado");
+            }
         }
 
         if(felicidade <= 0 || saude <= 0 || fome <= 0){
