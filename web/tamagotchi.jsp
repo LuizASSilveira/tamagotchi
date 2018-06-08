@@ -122,7 +122,7 @@
     <script>
         setTimeout(function () {
             location.reload();
-        }, 3000);
+        }, 9000);
     </script>
 </body>
 </html>
