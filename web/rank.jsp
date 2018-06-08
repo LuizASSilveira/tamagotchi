@@ -70,7 +70,7 @@
 
             <h2>Word Ranking</h2>
             <button style="display: block; margin-bottom: 1%; float: right; margin-top : 3%; width: 15%;height: 5%;" id="voltar" type="button" onclick=location.href='http://localhost:8084/tamagotchi/colecao.jsp' class="btn btn-warning">SAIR</button>            
-            <table class="table">
+            <table class="table table-dark">
                   <thead class="thead-dark">
                     <tr>
                       <th width="20%" scope="col">Pontuação</th>

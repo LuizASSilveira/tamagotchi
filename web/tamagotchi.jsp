@@ -110,11 +110,11 @@
         <div id="menuActions">
             <div id="actions">
                 <form action="Requisicao" method="POST">
-                    <input type="submit" name="Alimentar"   class="btn btn-outline-dark" value="Alimentar"  ${disabled} />
-                    <input type="submit" name="Banheiro"    class="btn btn-outline-dark" value="Banheiro"   ${disabled}/>
-                    <input type="submit" name="Jogar"       class="btn btn-outline-dark" value="Jogar"      ${disabled}/>
-                    <input type="submit" name="Curar"       class="btn btn-outline-dark" value="Curar"      ${disabled}/>
-                    <input type="submit" name="Luzes"       class="btn btn-outline-dark" value="Luzes"      ${disabled}/>
+                    <input type="submit" name="Alimentar"   class="btn btn-dark" value="Alimentar"  ${disabled} />
+                    <input type="submit" name="Banheiro"    class="btn btn-dark" value="Banheiro"   ${disabled}/>
+                    <input type="submit" name="Jogar"       class="btn btn-dark" value="Jogar"      ${disabled}/>
+                    <input type="submit" name="Curar"       class="btn btn-dark" value="Curar"      ${disabled}/>
+                    <input type="submit" name="Luzes"       class="btn btn-dark" value="Luzes"      ${disabled}/>
                 </form>
             </div>
         </div>
@@ -122,7 +122,7 @@
     <script>
         setTimeout(function () {
             location.reload();
-        }, 9000);
+        }, 15000);
     </script>
 </body>
 </html>
