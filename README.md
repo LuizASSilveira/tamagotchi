@@ -1,2 +1,2 @@
 # tamagotchi
-UTFPR - Project
+UTFPR - Project tt
